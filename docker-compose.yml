@@ -19,8 +19,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - carshopdatabasenet
+    networks: [ carshopdatabasenet ]
 
   pgadmin:
     image: dpage/pgadmin4:9
@@ -39,8 +38,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - carshopdatabasenet
+    networks: [ carshopdatabasenet ]
 
   backend:
     container_name: carshop-backend
@@ -52,14 +50,27 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB}
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
       - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
       - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=CarShop
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - carshopdatabasenet
+    networks: [ carshopdatabasenet ]
+
+  frontend:
+    container_name: carshop-frontend
+    build:
+      context: ./carshopFE
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "4200:80"
+    depends_on:
+      backend:
+        condition: service_started
+    networks: [ carshopdatabasenet ]
 
 volumes:
   pg_data:

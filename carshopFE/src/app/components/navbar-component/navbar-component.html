@@ -1,0 +1,21 @@
+<nz-layout>
+    <nz-header nz-flex>
+        <nz-space nzSize="middle">
+            <div class="hover-pointer" *nzSpaceItem>
+                <img
+                        ngSrc="../../../assets/icons/logo.svg"
+                        height="50"
+                        width="100"
+                        alt="logo"
+                        priority
+                     (click)="navigateToHomePage()"/>
+            </div>
+            <div *nzSpaceItem>
+                <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+                    <li nz-menu-item nzSelected routerLink="/home">{{ 'main_page' | translate }}</li>
+                    <li nz-menu-item routerLink="/cars">{{ 'all_cars' | translate }}</li>
+                </ul>
+            </div>
+        </nz-space>
+    </nz-header>
+</nz-layout>
