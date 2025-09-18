@@ -1,0 +1,1 @@
+You need to create the `.env` file. You will find every property in `sample.env`. 
