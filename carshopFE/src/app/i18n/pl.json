@@ -3,5 +3,11 @@
   "all_cars": "Wszystkie samochody",
   "contact_info": "Informacje kontaktowe",
   "owner_name": "Remigiusz Opiełka",
-  "phone": "Nr telefonu: 111 111 111"
+  "phone": "Nr telefonu: 111 111 111",
+  "login": "Zaloguj się",
+  "logout": "Wyloguj się",
+  "username": "Nazwa użytkownika",
+  "password": "Hasło",
+  "login_page": "Logowanie administratora",
+  "manage_cars": "Zarządzaj"
 }

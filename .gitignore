@@ -1,1 +1,4 @@
 .env
+
+keycloak/realm-export.json
+pgadmin/servers.json

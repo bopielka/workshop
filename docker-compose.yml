@@ -1,9 +1,7 @@
-version: "3.9"
-
 services:
-  db:
+  carshop-db:
     image: postgres:16
-    container_name: pg-carshop
+    container_name: carshop-db
     restart: unless-stopped
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
@@ -13,7 +11,6 @@ services:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
-      - ./db_init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
       interval: 10s
@@ -21,9 +18,9 @@ services:
       retries: 5
     networks: [ carshopdatabasenet ]
 
-  pgadmin:
+  carshop-pgadmin:
     image: dpage/pgadmin4:9
-    container_name: pgadmin
+    container_name: carshop-pgadmin
     restart: unless-stopped
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
@@ -36,30 +33,29 @@ services:
       - pgadmin_data:/var/lib/pgadmin
       - ./pgadmin/servers.json:/pgadmin4/servers.json:ro
     depends_on:
-      db:
+      carshop-db:
         condition: service_healthy
     networks: [ carshopdatabasenet ]
 
-  backend:
+  carshop-backend:
     container_name: carshop-backend
     build:
       context: ./carshopBE
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB}
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
       - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=CarShop
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://carshop-db:5432/${POSTGRES_DB}
+      - SPRING_PROFILES_ACTIVE=docker
     expose:
       - "8080"
     depends_on:
-      db:
+      carshop-db:
         condition: service_healthy
     networks: [ carshopdatabasenet ]
 
-  frontend:
+  carshop-frontend:
     container_name: carshop-frontend
     build:
       context: ./carshopFE
@@ -68,9 +64,28 @@ services:
     ports:
       - "4200:80"
     depends_on:
-      backend:
+      carshop-backend:
         condition: service_started
     networks: [ carshopdatabasenet ]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    command: [ "start-dev", "--http-port=8080", "--import-realm" ]
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://carshop-db:5432/${POSTGRES_DB}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    depends_on: [ carshop-db ]
+    networks: [ carshopdatabasenet ]
+    expose:
+      - "8080"
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
 
 volumes:
   pg_data:

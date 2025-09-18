@@ -1,0 +1,31 @@
+{
+  "id": "carshop",
+  "realm": "CarShop",
+  "enabled": true,
+
+  "roles": {
+    "realm": [
+      {
+        "name": "manage-cars"
+      }
+    ]
+  },
+
+  "users": [
+    {
+      "username": "sample",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Johny",
+      "lastName": "Bravo",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Pomidorek123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [ "manage-cars" ]
+    }
+  ]
+}

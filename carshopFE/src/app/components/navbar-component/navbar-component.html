@@ -1,5 +1,5 @@
 <nz-layout>
-    <nz-header nz-flex>
+    <nz-header nz-flex nzJustify="space-between">
         <nz-space nzSize="middle">
             <div class="hover-pointer" *nzSpaceItem>
                 <img
@@ -11,11 +11,25 @@
                      (click)="navigateToHomePage()"/>
             </div>
             <div *nzSpaceItem>
-                <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-                    <li nz-menu-item nzSelected routerLink="/home">{{ 'main_page' | translate }}</li>
-                    <li nz-menu-item routerLink="/cars">{{ 'all_cars' | translate }}</li>
+                <ul nz-menu nzTheme="dark" nzMode="horizontal">
+                    <li nz-menu-item [nzSelected]="isSelected('/home')" routerLink="/home">{{ 'main_page' | translate }}</li>
+                    <li nz-menu-item [nzSelected]="isSelected('/cars')" routerLink="/cars">{{ 'all_cars' | translate }}</li>
+                    @if (isManager()) {
+                        <li nz-menu-item [nzSelected]="isSelected('/manage-cars')" routerLink="/manage-cars">{{ 'manage_cars' | translate }}</li>
+                    }
                 </ul>
             </div>
         </nz-space>
+        <div>
+            <ul nz-menu nzTheme="dark" nzMode="horizontal">
+                @if (!isLoggedIn()) {
+                    <li nz-menu-item [nzSelected]="isSelected('/login')" routerLink="/login">{{ 'login' | translate }}</li>
+                }
+                @if (isLoggedIn()) {
+                    <li nz-menu-item [nzSelected]="isSelected('/logout')" (click)="logout()">{{ 'logout' | translate }}</li>
+
+                }
+            </ul>
+        </div>
     </nz-header>
 </nz-layout>

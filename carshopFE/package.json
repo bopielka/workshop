@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-local": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -30,6 +31,8 @@
     "@angular/router": "^20.3.0",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
+    "keycloak-angular": "^20.0.0",
+    "keycloak-js": "^26.2.0",
     "ng-zorro-antd": "^20.2.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
