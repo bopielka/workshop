@@ -1,31 +1,52 @@
 {
-  "id": "carshop",
-  "realm": "CarShop",
+  "id": "xyz",
+  "realm": "xyz",
   "enabled": true,
 
   "roles": {
     "realm": [
       {
-        "name": "manage-cars"
+        "name": "xyz"
       }
     ]
   },
 
   "users": [
     {
-      "username": "sample",
+      "username": "xyz",
       "enabled": true,
       "emailVerified": true,
-      "firstName": "Johny",
-      "lastName": "Bravo",
+      "firstName": "xyz",
+      "lastName": "xyz",
       "credentials": [
         {
           "type": "password",
-          "value": "Pomidorek123",
+          "value": "xyz",
           "temporary": false
         }
       ],
-      "realmRoles": [ "manage-cars" ]
+      "realmRoles": [ "xyz" ]
+    }
+  ],
+
+  "clients": [
+    {
+      "clientId": "frontend",
+      "name": "frontend",
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+
+      "redirectUris": ["http://localhost:4200/*"],
+      "webOrigins": ["+"],
+
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:4200/*"
+      }
     }
   ]
 }
