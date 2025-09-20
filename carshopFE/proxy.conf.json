@@ -13,21 +13,6 @@
     "target": "http://localhost:8081",
     "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": { "^/auth": "" }
-  },
-
-  "/resources": {
-    "target": "http://localhost:8081",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  },
-
-  "/realms": {
-    "target": "http://localhost:8081",
-    "secure": false,
-    "changeOrigin": true,
     "logLevel": "debug"
   }
 }

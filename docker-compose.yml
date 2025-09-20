@@ -12,29 +12,10 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER" ]
       interval: 10s
       timeout: 5s
       retries: 5
-    networks: [ carshopdatabasenet ]
-
-  carshop-pgadmin:
-    image: dpage/pgadmin4:9
-    container_name: carshop-pgadmin
-    restart: unless-stopped
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
-      # tryb single-user (wygodny lokalnie)
-      - PGADMIN_CONFIG_SERVER_MODE=False
-    ports:
-      - "5050:80"
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-      - ./pgadmin/servers.json:/pgadmin4/servers.json:ro
-    depends_on:
-      carshop-db:
-        condition: service_healthy
     networks: [ carshopdatabasenet ]
 
   carshop-backend:
@@ -46,10 +27,21 @@ services:
     environment:
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
       - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://carshop-db:5432/${POSTGRES_DB}
-      - SPRING_PROFILES_ACTIVE=docker
-    expose:
-      - "8080"
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - SERVER_PORT=${SERVER_PORT}
+      - JPA_DATABASE_PLATFORM=${JPA_DATABASE_PLATFORM}
+      - JPA_HIBERNATE_DDL_AUTO=${JPA_HIBERNATE_DDL_AUTO}
+      - APP_SCHEMA=${APP_SCHEMA}
+      - FLYWAY_ENABLED=${FLYWAY_ENABLED}
+      - FLYWAY_LOCATIONS=${FLYWAY_LOCATIONS}
+      - FLYWAY_CREATE_SCHEMAS=${FLYWAY_CREATE_SCHEMAS}
+      - FLYWAY_VALIDATE_ON_MIGRATE=${FLYWAY_VALIDATE_ON_MIGRATE}
+      - FLYWAY_BASELINE_ON_MIGRATE=${FLYWAY_BASELINE_ON_MIGRATE}
+      - FLYWAY_CLEAN_DISABLED=${FLYWAY_CLEAN_DISABLED}
+    ports:
+      - "8080:8080"
     depends_on:
       carshop-db:
         condition: service_healthy
@@ -62,7 +54,10 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - "4200:80"
+      - "8443:443"
+    volumes:
+      - ./certs/localhost-cert.pem:/etc/nginx/certs/fullchain.pem:ro
+      - ./certs/localhost-key.pem:/etc/nginx/certs/privkey.pem:ro
     depends_on:
       carshop-backend:
         condition: service_started
@@ -70,14 +65,35 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:24.0
-    command: [ "start-dev", "--http-port=8080", "--import-realm" ]
     environment:
+      #      DB
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://carshop-db:5432/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_RELATIVE_PATH: ${KC_HTTP_RELATIVE_PATH}
+      KC_PROXY_HEADERS: ${KC_PROXY_HEADERS}
+      KC_HOSTNAME_STRICT: ${KC_HOSTNAME_STRICT}
+      KC_HOSTNAME_URL: ${KC_HOSTNAME_URL}
+      #      ADMIN
+      KEYCLOAK_ADMIN: ${KC_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD}
+      #      REALM
+      KC_REALM_ID: ${KC_REALM_ID}
+      KC_REALM_NAME: ${KC_REALM_NAME}
+      KC_ROLE_MANAGE_CARS: ${KC_ROLE_MANAGE_CARS}
+      KC_USERNAME: ${KC_USERNAME}
+      KC_USER_FIRST: ${KC_USER_FIRST}
+      KC_USER_LAST: ${KC_USER_LAST}
+      KC_USER_EMAIL: ${KC_USER_EMAIL}
+      KC_USER_PASSWORD: ${KC_USER_PASSWORD}
+      KC_CLIENT_ID: ${KC_CLIENT_ID}
+      KC_REDIRECT_URIS: ${KC_REDIRECT_URIS}
+      KC_WEB_ORIGINS: ${KC_WEB_ORIGINS}
+      KC_POST_LOGOUT_URIS: ${KC_POST_LOGOUT_URIS}
+        # (opcjonalnie)
+#      KC_REDIRECT_URIS_JSON: ${KC_REDIRECT_URIS_JSON}
+#      KC_POST_LOGOUT_URIS_JSON: ${KC_POST_LOGOUT_URIS_JSON}
     depends_on: [ carshop-db ]
     networks: [ carshopdatabasenet ]
     expose:
@@ -85,11 +101,13 @@ services:
     ports:
       - "8081:8080"
     volumes:
-      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
-
+      - ./keycloak/realm-export.json.tpl:/tmp/realm-export.json.tpl:ro
+      - ./keycloak/start-kc.sh:/opt/keycloak/start-kc.sh:ro
+    entrypoint: [ "/bin/sh", "/opt/keycloak/start-kc.sh" ]
 volumes:
   pg_data:
   pgadmin_data:
+  keycloak_import:
 
 networks:
   carshopdatabasenet:

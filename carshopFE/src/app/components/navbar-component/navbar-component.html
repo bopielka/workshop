@@ -24,10 +24,8 @@
             <ul nz-menu nzTheme="dark" nzMode="horizontal">
                 @if (!isLoggedIn()) {
                     <li nz-menu-item [nzSelected]="isSelected('/login')" routerLink="/login">{{ 'login' | translate }}</li>
-                }
-                @if (isLoggedIn()) {
+                } @else if (isLoggedIn()) {
                     <li nz-menu-item [nzSelected]="isSelected('/logout')" (click)="logout()">{{ 'logout' | translate }}</li>
-
                 }
             </ul>
         </div>

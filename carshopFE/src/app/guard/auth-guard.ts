@@ -10,11 +10,12 @@ const isAccessAllowed = async (route: ActivatedRouteSnapshot, _: RouterStateSnap
         Object.values(grantedRoles.resourceRoles).some(roles => roles.includes(role)) ||
         grantedRoles.realmRoles.includes(role);
 
+    const router = inject(Router);
     if (!requiredRole) {
-        return authenticated ? true : inject(Router).parseUrl('/home');
+        return authenticated ? true : router.parseUrl('/home');
     }
 
-    return (authenticated && hasRole(requiredRole)) ? true : inject(Router).parseUrl('/home');
+    return (authenticated && hasRole(requiredRole)) ? true : router.parseUrl('/home');
 };
 
 export const authGuard = createAuthGuard<CanActivateFn>(isAccessAllowed);

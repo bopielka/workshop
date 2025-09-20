@@ -1,4 +1,8 @@
 .env
 
-keycloak/realm-export.json
+keycloak/import/realm-export.json
 pgadmin/servers.json
+.keycloak_import
+
+certs/localhost-cert.pem
+certs/localhost-key.pem
