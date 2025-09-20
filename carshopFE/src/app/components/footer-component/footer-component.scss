@@ -3,7 +3,7 @@
 }
 
 .footer-background {
-    background: #001529
+    background: var(--app-dark-blue);
 }
 
 .footer-text {
@@ -12,7 +12,7 @@
 }
 
 .color-wheat {
-    color: wheat;
+    color: var(--app-light-creme);
 }
 
 .pl-5px {

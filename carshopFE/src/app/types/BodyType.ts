@@ -1,0 +1,2 @@
+export type BodyType = 'coupe' | 'cabriolet' | 'minivan' | 'sedan' | 'suv' | 'bus' | 'limousine' | 'combi';
+export const bodyTypes: BodyType[] = ['coupe', 'cabriolet', 'minivan', 'sedan', 'suv', 'bus', 'limousine', 'combi'];

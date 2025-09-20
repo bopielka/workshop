@@ -1,9 +1,17 @@
-// Custom Theming for NG-ZORRO
-// For more information: https://ng.ant.design/docs/customize-theme/en
 @import "../node_modules/ng-zorro-antd/ng-zorro-antd.less";
 
+/* Define Less tokens FIRST (must be actual colors) */
+@root-entry-name: default;          // required by ng-zorro 15+
+@primary-color: #1E4969;
+@layout-header-background: #121B22;
+@form-vertical-label-padding: 0 0 0;
 
-// Override less variables to here
-// View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
-
-// @primary-color: #1890ff;
+/* (Optional) Expose matching CSS vars for use in SCSS/component styles */
+:root {
+  --app-dark-blue: @layout-header-background;
+  --app-blue: @primary-color;
+  --app-creme: #C5AE97;
+  --app-light-creme: #E3E3D7;
+  --app-red: #930002;
+  --app-dark-red: #581816;
+}

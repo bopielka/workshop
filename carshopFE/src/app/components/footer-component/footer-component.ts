@@ -9,7 +9,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
     NzIconDirective
   ],
   templateUrl: './footer-component.html',
-  styleUrls: ['./footer-component.css', '../../../assets/global-styles.scss']
+  styleUrls: ['./footer-component.scss', '../../../assets/global-styles.scss']
 })
 export class FooterComponent {
 

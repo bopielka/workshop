@@ -1,0 +1,10 @@
+@use "sass:math";
+
+$max: 1000;
+$step: 50;
+$steps: math.div($max, $step);
+
+@for $i from 0 through $steps {
+  $v: $i * $step;
+  .height-#{$v} { height: #{$v}px; }
+}

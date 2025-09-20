@@ -1,0 +1,119 @@
+<form nz-form [formGroup]="carDetailsForm" (ngSubmit)="submitForm()">
+    <div nz-row>
+        <div class="px-10" nz-col [nzSm]="12" [nzXs]="24">
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'model' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                    <input nzSize="large" nz-input formControlName="model"/>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'make' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                    <input nzSize="large" nz-input type="text" formControlName="make"/>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'year_of_production' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                    <input nzSize="large" nz-input type="number" formControlName="yearOfProduction"/>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'mileage' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                    <nz-input-group nzSize="large" nzAddOnAfter="km">
+                        <input nz-input type="number" formControlName="mileage"/>
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'fuel_type' | translate }}:</nz-form-label>
+                <nz-select nzSize="large" class="test" nz-col [nzSm]="15" [nzXs]="24" formControlName="fuelType">
+                    @for (fuelType of fuelTypes; track fuelType) {
+                        <nz-option [nzValue]="fuelType" [nzLabel]="translateService.instant(fuelType)"/>
+                    }
+                </nz-select>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'power' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                    <input nzSize="large" nz-input type="number" formControlName="power"/>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'capacity' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                    <nz-input-group nzSize="large" nzAddOnAfter="L">
+                        <input nz-input type="number" formControlName="capacity"/>
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'door_count' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                        <input nzSize="large" nz-input type="number" formControlName="doorCount"/>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'gearbox' | translate }}:</nz-form-label>
+                <nz-select nzSize="large" class="test" nz-col [nzSm]="15" [nzXs]="24" formControlName="gearboxType">
+                    @for (gearboxType of gearboxTypes; track gearboxType) {
+                        <nz-option [nzValue]="gearboxType" [nzLabel]="translateService.instant(gearboxType)"/>
+                    }
+                </nz-select>
+            </nz-form-item>
+            <nz-form-item nzJustify="end">
+                <nz-form-label nzNoColon=true>{{ 'body_type' | translate }}:</nz-form-label>
+                <nz-select nzSize="large" nz-col [nzSm]="15" [nzXs]="24" formControlName="bodyType">
+                    @for (bodyType of bodyTypes; track bodyType) {
+                        <nz-option [nzValue]="bodyType" [nzLabel]="translateService.instant(bodyType)"/>
+                    }
+                </nz-select>
+            </nz-form-item>
+        </div>
+        <div class="px-10" nz-col [nzSm]="12" [nzXs]="24">
+            <div class="pl-41">
+                <nz-upload
+                        [(nzFileList)]="fileList"
+                        [nzAction]="uploadPhoto"
+                        [nzPreview]="handlePreview"
+                        [nzShowButton]="fileList.length < 8"
+                        nzFileType="image/png,image/jpeg"
+                        nzListType="picture-card"
+                        nzMultiple="true"
+                >
+                    <div>
+                        <nz-icon nzType="plus" />
+                        <div style="margin-top: 8px">{{ 'upload' | translate }}</div>
+                    </div>
+                </nz-upload>
+                <nz-modal
+                        [nzVisible]="previewVisible"
+                        [nzContent]="modalContent"
+                        [nzFooter]="null"
+                        (nzOnCancel)="previewVisible = false"
+                >
+                    <ng-template #modalContent>
+                        <img [src]="previewImage" style="width: 100%"  alt="preview-image"/>
+                    </ng-template>
+                </nz-modal>
+            </div>
+
+            <nz-form-item nzJustify="start">
+                <nz-form-label nzNoColon=true>{{ 'description' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                    <textarea nzSize="large" nz-input formControlName="description"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nzJustify="start">
+                <nz-form-label nzNoColon=true>{{ 'price' | translate }}:</nz-form-label>
+                <nz-form-control nzSpan="15">
+                    <nz-input-group nzSize="large" [nzAddOnAfter]="translateService.instant('currency')">
+                        <input nz-input type="number" formControlName="price"/>
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+</form>

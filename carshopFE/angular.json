@@ -32,7 +32,7 @@
             ],
             "styles": [
               "src/theme.less",
-              "src/styles.css"
+              "src/styles.scss"
             ]
           },
           "configurations": {
@@ -96,7 +96,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ]
           }
         }

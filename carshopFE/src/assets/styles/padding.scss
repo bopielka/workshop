@@ -1,0 +1,40 @@
+@use "sass:math";
+
+$max: 50;
+$step: 5;
+$steps: math.div($max, $step);
+
+@for $i from 0 through $steps {
+  $v: $i * $step;
+  .px-#{$v} { padding-inline: #{$v}px; }
+}
+
+@for $i from 0 through $steps {
+  $v: $i * $step;
+  .py-#{$v} { padding-block: #{$v}px; }
+}
+
+@for $i from 0 through $steps {
+  $v: $i * $step;
+  .pl-#{$v} { padding-left: #{$v}px; }
+}
+
+@for $i from 0 through $steps {
+  $v: $i * $step;
+  .pr-#{$v} { padding-right: #{$v}px; }
+}
+
+@for $i from 0 through $steps {
+  $v: $i * $step;
+  .pt-#{$v} { padding-top: #{$v}px; }
+}
+
+@for $i from 0 through $steps {
+  $v: $i * $step;
+  .pb-#{$v} { padding-bottom: #{$v}px; }
+}
+
+@for $i from 0 through $steps {
+  $v: $i * $step;
+  .p-#{$v} { padding: #{$v}px; }
+}

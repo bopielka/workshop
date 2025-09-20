@@ -1,3 +1,11 @@
 nz-header {
     padding: 0 0 0 25px;
 }
+
+.logo-color path {
+  fill: var(--app-light-creme) !important;
+}
+
+.text-color {
+  color: var(--app-light-creme);
+}

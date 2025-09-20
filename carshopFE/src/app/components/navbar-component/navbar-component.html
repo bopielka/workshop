@@ -1,7 +1,7 @@
 <nz-layout>
     <nz-header nz-flex nzJustify="space-between">
         <nz-space nzSize="middle">
-            <div class="hover-pointer" *nzSpaceItem>
+            <div class="hover-pointer logo-color" *nzSpaceItem>
                 <img
                         ngSrc="../../../assets/icons/logo.svg"
                         height="50"
@@ -12,10 +12,10 @@
             </div>
             <div *nzSpaceItem>
                 <ul nz-menu nzTheme="dark" nzMode="horizontal">
-                    <li nz-menu-item [nzSelected]="isSelected('/home')" routerLink="/home">{{ 'main_page' | translate }}</li>
-                    <li nz-menu-item [nzSelected]="isSelected('/cars')" routerLink="/cars">{{ 'all_cars' | translate }}</li>
+                    <li class="text-color" nz-menu-item [nzSelected]="isSelected('/home')" routerLink="/home">{{ 'main_page' | translate }}</li>
+                    <li class="text-color" nz-menu-item [nzSelected]="isSelected('/cars')" routerLink="/cars">{{ 'all_cars' | translate }}</li>
                     @if (isManager()) {
-                        <li nz-menu-item [nzSelected]="isSelected('/manage-cars')" routerLink="/manage-cars">{{ 'manage_cars' | translate }}</li>
+                        <li class="text-color" nz-menu-item [nzSelected]="isSelected('/manage-cars')" routerLink="/manage-cars">{{ 'manage_cars' | translate }}</li>
                     }
                 </ul>
             </div>

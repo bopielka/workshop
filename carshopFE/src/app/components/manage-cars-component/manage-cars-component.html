@@ -1,1 +1,11 @@
-<p>manage-cars-component works!</p>
+<div nz-flex nzVertical nzAlign="center" nzGap="middle">
+    <button nz-button nzType="primary" nzSize="large" nzShape="round" routerLink="/addCar">
+        <nz-icon nzType="plus" nzTheme="outline" /> {{ "add_car" | translate }}
+    </button>
+    <button nz-button nzType="primary" nzSize="large" nzShape="round">
+        <nz-icon nzType="delete" nzTheme="outline" /> {{ "remove_car" | translate }}
+    </button>
+    <button nz-button nzType="primary" nzSize="large" nzShape="round">
+        <nz-icon nzType="edit" nzTheme="outline" /> {{ "edit_car" | translate }}
+    </button>
+</div>
