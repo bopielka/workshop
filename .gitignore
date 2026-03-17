@@ -6,3 +6,5 @@ pgadmin/servers.json
 
 certs/localhost-cert.pem
 certs/localhost-key.pem
+
+carshopBE/src/main/resources/application-local.properties

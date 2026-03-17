@@ -1,0 +1,18 @@
+@if (previewUrls.size > 0) {
+    <div class="carousel-wrapper">
+        <nz-carousel nzEffect="fade" [nzDots]="true" [nzArrows]="fileList.length > 1">
+            @for (file of fileList; track file.uid) {
+                <div nz-carousel-content class="carousel-slide">
+                    <img [src]="previewUrls.get(file.uid)" [alt]="file.name" class="carousel-img"/>
+                </div>
+            }
+        </nz-carousel>
+    </div>
+    <div class="carousel-actions">
+        <ng-content select="[actions]"/>
+    </div>
+} @else {
+    <div class="carousel-empty">
+        <span>Brak zdjęć</span>
+    </div>
+}

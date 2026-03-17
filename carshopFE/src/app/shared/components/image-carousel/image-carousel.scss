@@ -1,0 +1,96 @@
+:host {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.carousel-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+nz-carousel {
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.carousel-slide {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+  background: var(--primary-3);
+  border-radius: 12px;
+  padding-bottom: 32px;
+  border: 2px solid var(--primary-5);
+}
+
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+::ng-deep {
+  .slick-slider,
+  .slick-list,
+  .slick-track,
+  .slick-slide > div {
+    height: 100% !important;
+  }
+
+  .slick-prev, .slick-next {
+    color: var(--secondary-9) !important;
+
+    &::before {
+      color: var(--secondary-9) !important;
+    }
+  }
+
+  .slick-dots li button {
+    background: var(--secondary-9) !important;
+    opacity: 0.4;
+  }
+
+  .slick-dots li.slick-active button {
+    background: var(--secondary-9) !important;
+    opacity: 1;
+  }
+
+}
+
+.carousel-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.set-main-btn {
+  background-color: var(--secondary-9) !important;
+  color: var(--primary-2) !important;
+  border-color: var(--secondary-9) !important;
+
+  &:hover {
+    background-color: var(--secondary-8) !important;
+    border-color: var(--secondary-8) !important;
+  }
+}
+
+.carousel-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-3);
+  border-radius: 12px;
+  color: var(--secondary-5);
+  font-size: 0.875rem;
+}

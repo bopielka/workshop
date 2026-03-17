@@ -53,6 +53,9 @@ services:
       context: ./carshopFE
       dockerfile: Dockerfile
     restart: unless-stopped
+    environment:
+      - KC_REALM_ID=${KC_REALM_ID}
+      - KC_CLIENT_ID=${KC_CLIENT_ID}
     ports:
       - "8443:443"
     volumes:
@@ -64,7 +67,7 @@ services:
     networks: [ carshopdatabasenet ]
 
   keycloak:
-    image: quay.io/keycloak/keycloak:24.0
+    image: quay.io/keycloak/keycloak:26.2
     environment:
       #      DB
       KC_DB: postgres
@@ -91,7 +94,7 @@ services:
       KC_REDIRECT_URIS: ${KC_REDIRECT_URIS}
       KC_WEB_ORIGINS: ${KC_WEB_ORIGINS}
       KC_POST_LOGOUT_URIS: ${KC_POST_LOGOUT_URIS}
-        # (opcjonalnie)
+        # (optionally)
 #      KC_REDIRECT_URIS_JSON: ${KC_REDIRECT_URIS_JSON}
 #      KC_POST_LOGOUT_URIS_JSON: ${KC_POST_LOGOUT_URIS_JSON}
     depends_on: [ carshop-db ]

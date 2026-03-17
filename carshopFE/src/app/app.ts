@@ -1,21 +1,22 @@
 import {Component} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import polishTranslation from "../app/i18n/pl.json"
-import {NavbarComponent} from "./components/navbar-component/navbar-component";
-import {FooterComponent} from "./components/footer-component/footer-component";
-import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
+import polishTranslation from "@/app/shared/i18n/pl.json";
+import englishTranslation from "@/app/shared/i18n/en.json";
+import {NavbarComponent} from "@/app/shared/components/navbar-component/navbar-component";
+import {FooterComponent} from "@/app/shared/components/footer-component/footer-component";
 import {RouterOutlet} from "@angular/router";
 
 @Component({
     selector: 'app-root',
-    imports: [NavbarComponent, FooterComponent, NzRowDirective, NzColDirective, RouterOutlet],
+    imports: [NavbarComponent, FooterComponent, RouterOutlet],
     templateUrl: './app.html',
     styleUrl: './app.css'
 })
 export class App {
     constructor(private translate: TranslateService) {
-        this.translate.addLangs(['pl']);
-        this.translate.setTranslation('pl', polishTranslation)
+        this.translate.addLangs(['pl', 'en']);
+        this.translate.setTranslation('pl', polishTranslation);
+        this.translate.setTranslation('en', englishTranslation);
         this.translate.setFallbackLang('pl');
         this.translate.use('pl');
     }

@@ -1,0 +1,16 @@
+<app-page-wrapper [title]="'manage_cars' | translate">
+    <div class="flex flex-col items-center gap-4">
+        <button nz-button nzType="primary" nzSize="large" nzShape="round" routerLink="/addCar">
+            <nz-icon nzType="plus" nzTheme="outline"/>
+            {{ "add_car" | translate }}
+        </button>
+        <button nz-button nzType="default" nzSize="large" nzShape="round">
+            <nz-icon nzType="edit" nzTheme="outline"/>
+            {{ "edit_car" | translate }}
+        </button>
+        <button nz-button nzDanger nzSize="large" nzShape="round">
+            <nz-icon nzType="delete" nzTheme="outline"/>
+            {{ "remove_car" | translate }}
+        </button>
+    </div>
+</app-page-wrapper>

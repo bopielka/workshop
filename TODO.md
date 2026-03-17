@@ -1,2 +1,2 @@
-1. Pozmieniać `ports` na `expose` w `docker-compose.yml` jak pójdzie na proda.
-2. ...
+1. Change `ports` to `expose` in `docker-compose.yml`.
+2. Richtext editor in car description field.

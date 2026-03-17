@@ -1,6 +1,8 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { App } from './app/app';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {buildAppConfig} from '@/app/app.config';
+import {App} from '@/app/app';
 
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+fetch('/assets/keycloak.json')
+    .then(r => r.json())
+    .then(({realm, clientId}) => bootstrapApplication(App, buildAppConfig(realm, clientId)))
+    .catch((err) => console.error(err));

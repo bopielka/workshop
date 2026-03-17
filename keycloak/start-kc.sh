@@ -5,14 +5,14 @@ TPL=/tmp/realm-export.json.tpl
 OUT=/opt/keycloak/data/import/realm-export.json
 mkdir -p /opt/keycloak/data/import
 
-# redirectUris -> ZAWSZE tablica JSON
+# redirectUris
 if [ -n "${KC_REDIRECT_URIS_JSON:-}" ]; then
   RU="${KC_REDIRECT_URIS_JSON}"
 else
   RU="[\"${KC_REDIRECT_URIS}\"]"
 fi
 
-# post.logout.redirect.uris -> ZAWSZE string
+# post.logout.redirect.uris
 if [ -n "${KC_POST_LOGOUT_URIS_JSON:-}" ]; then
   # z ["a","b"] zrób "a b"
   PLU_STR=$(printf '%s' "${KC_POST_LOGOUT_URIS_JSON}" | sed -e 's/^\[//; s/\]$//' -e 's/"//g' -e 's/,/ /g')
@@ -20,7 +20,6 @@ else
   PLU_STR="${KC_POST_LOGOUT_URIS}"
 fi
 
-# ucieczka dla sed (/, &)
 esc() { printf '%s' "$1" | sed -e 's/[\/&]/\\&/g'; }
 
 sed -e "s|\${KC_REALM_ID}|$(esc "${KC_REALM_ID}")|g" \
@@ -38,8 +37,7 @@ sed -e "s|\${KC_REALM_ID}|$(esc "${KC_REALM_ID}")|g" \
 
 exec /opt/keycloak/bin/kc.sh start-dev --http-port=8080 \
  --import-realm \
- --hostname-strict=false \
  --http-relative-path="${KC_HTTP_RELATIVE_PATH:-/auth}" \
  --proxy-headers="${KC_PROXY_HEADERS:-xforwarded}" \
  --hostname-strict="${KC_HOSTNAME_STRICT:-false}" \
- --hostname-url="${KC_HOSTNAME_URL:-http://localhost:4200/auth}"
+ --hostname="${KC_HOSTNAME_URL:-https://localhost:8443/auth}"

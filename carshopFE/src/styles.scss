@@ -1,2 +1,106 @@
-@use 'assets/styles/padding';
-@use 'assets/styles/height';
+@use 'sass:math';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$color-map: (
+        'primary-1': #FAFAF8,
+        'primary-2': #F4F4F0,
+        'primary-3': #EBEBDF,
+        'primary-4': #E3E3D7,
+        'primary-5': #CECEC0,
+        'primary-6': #B5B5A6,
+        'primary-7': #94948A,
+        'primary-8': #707068,
+        'primary-9': #4C4C44,
+        'secondary-1': #EEF0F2,
+        'secondary-2': #D4D9DE,
+        'secondary-3': #AEBAC4,
+        'secondary-4': #8698A6,
+        'secondary-5': #5E7588,
+        'secondary-6': #3D5769,
+        'secondary-7': #26404F,
+        'secondary-8': #1A2B36,
+        'secondary-9': #121B22,
+        'success-1': #F0FBF0,
+        'success-2': #D4F0D5,
+        'success-3': #A8DDA9,
+        'success-4': #74C476,
+        'success-5': #4CAF50,
+        'success-6': #388E3C,
+        'success-7': #2A6E2D,
+        'success-8': #1B4D1E,
+        'success-9': #0F2D11,
+        'error-1': #FFF0F0,
+        'error-2': #FCDADA,
+        'error-3': #F7AEAE,
+        'error-4': #F07070,
+        'error-5': #D43030,
+        'error-6': #B01818,
+        'error-7': #930002,
+        'error-8': #720001,
+        'error-9': #581816,
+        'warning-1': #FFFBF0,
+        'warning-2': #FFF3D0,
+        'warning-3': #FFE49A,
+        'warning-4': #FFD060,
+        'warning-5': #FFB520,
+        'warning-6': #E89000,
+        'warning-7': #C47000,
+        'warning-8': #9C5400,
+        'warning-9': #6E3A00,
+);
+
+$opacity-steps: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95;
+
+:root {
+  @each $name, $value in $color-map {
+    --#{$name}: #{$value};
+    @each $step in $opacity-steps {
+      --#{$name}-#{$step}: #{rgba($value, math.div($step, 100))};
+    }
+  }
+}
+
+.hover-pointer {
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
+  margin: 0 2px !important;
+}
+
+.ant-menu-dark .ant-menu-item:hover,
+.ant-menu-dark .ant-menu-item-active {
+  background-color: transparent !important;
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item:not(.ant-menu-item-selected):hover {
+  background-color: var(--secondary-1-20) !important;
+  border-radius: 9999px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  margin-top: 14px !important;
+  margin-bottom: 14px !important;
+
+  &::after {
+    display: none !important;
+  }
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected {
+  background-color: var(--primary-2) !important;
+  border-radius: 9999px !important;
+  color: var(--secondary-9) !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  margin-top: 14px !important;
+  margin-bottom: 14px !important;
+
+  &::after {
+    display: none !important;
+  }
+}

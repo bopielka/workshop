@@ -1,12 +1,10 @@
 package com.example.carshop.controllers;
 
-import com.example.carshop.entity.TestEntity;
+import com.example.carshop.domain.entity.TestEntity;
 import com.example.carshop.repositories.TestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigInteger;
 
 @RestController
 public class TestController {
@@ -20,6 +18,6 @@ public class TestController {
 
     @GetMapping("/test")
     public TestEntity getTest() {
-        return testRepo.findById(BigInteger.ONE).orElseThrow(() -> new RuntimeException("Twoja stara exception"));
+        return testRepo.findById(1L).orElseThrow(() -> new RuntimeException("Twoja stara exception"));
     }
 }

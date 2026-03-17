@@ -1,0 +1,14 @@
+<app-page-wrapper [title]="'main_page' | translate">
+    <div class="flex flex-row flex-wrap gap-4 justify-center">
+        <nz-card class="w-[450px]" [nzTitle]="translateService.instant('contact_info')">
+            <b>{{ 'owner_name' | translate }}</b>
+            <div>{{ 'phone' | translate }}</div>
+        </nz-card>
+        <app-car-card-component></app-car-card-component>
+        <app-car-card-component></app-car-card-component>
+        <app-car-card-component></app-car-card-component>
+        <app-car-card-component></app-car-card-component>
+        <app-car-card-component></app-car-card-component>
+        <app-car-card-component></app-car-card-component>
+    </div>
+</app-page-wrapper>
