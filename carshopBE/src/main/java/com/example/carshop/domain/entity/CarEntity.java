@@ -57,6 +57,9 @@ public class CarEntity {
     @Column
     private BigDecimal price;
 
+    @Column(nullable = false)
+    private boolean isDraft = false;
+
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CarImageEntity> images = new ArrayList<>();
 
@@ -175,6 +178,14 @@ public class CarEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public boolean isDraft() {
+        return isDraft;
+    }
+
+    public void setDraft(boolean isDraft) {
+        this.isDraft = isDraft;
     }
 
     public List<CarImageEntity> getImages() {

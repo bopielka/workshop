@@ -1,118 +1,91 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {CarDto} from "@/app/domain/dto/CarDto";
-import {FuelType} from "@/app/domain/types/FuelType";
-import {GearboxType} from "@/app/domain/types/GearboxType";
-import {BodyType} from "@/app/domain/types/BodyType";
-import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent} from "ng-zorro-antd/form";
-import {NzInputDirective, NzInputWrapperComponent} from "ng-zorro-antd/input";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
-import {NzUploadComponent, NzUploadFile} from "ng-zorro-antd/upload";
-import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
-import {fuelTypes} from "@/app/domain/types/FuelType";
-import {gearboxTypes} from "@/app/domain/types/GearboxType";
-import {bodyTypes} from "@/app/domain/types/BodyType";
-import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
-import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {PageWrapperComponent} from "@/app/shared/components/page-wrapper/page-wrapper";
-import {ImageCarouselComponent} from "@/app/shared/components/image-carousel/image-carousel";
-
-const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
+import {Component, inject, TemplateRef, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {NzUploadFile} from 'ng-zorro-antd/upload';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzIconDirective} from 'ng-zorro-antd/icon';
+import {PageWrapperComponent} from '@/app/layout/page-wrapper/page-wrapper';
+import {CarDto} from '@/app/domain/dto/CarDto';
+import {FuelType} from '@/app/domain/types/FuelType';
+import {GearboxType} from '@/app/domain/types/GearboxType';
+import {BodyType} from '@/app/domain/types/BodyType';
+import {injectCreateCarMutation} from '@/app/api/car/car-service';
+import {MessageService} from '@/app/shared/services/message.service';
+import {CarFormFieldsComponent} from '@/app/shared/components/car-form-fields/car-form-fields';
 
 @Component({
     selector: 'app-add-car-component',
     imports: [
-        NzFormDirective,
         ReactiveFormsModule,
-        NzFormItemComponent,
-        NzFormLabelComponent,
-        NzFormControlComponent,
-        NzInputDirective,
         TranslatePipe,
-        NzUploadComponent,
-        NzIconDirective,
-        NzSelectComponent,
-        NzOptionComponent,
-        NzModalComponent,
-        NzModalModule,
-        NzRowDirective,
-        NzColDirective,
-        NzInputWrapperComponent,
-        PageWrapperComponent,
         NzButtonComponent,
-        ImageCarouselComponent
+        NzIconDirective,
+        PageWrapperComponent,
+        CarFormFieldsComponent,
     ],
     templateUrl: './add-car-component.html',
-    styleUrl: './add-car-component.scss'
+    styleUrl: './add-car-component.scss',
 })
 export class AddCarComponent {
+    @ViewChild('msgTpl') private msgTpl!: TemplateRef<void>;
 
     protected carDetailsForm!: FormGroup<{ [K in keyof Omit<CarDto, 'images'>]: FormControl<CarDto[K] | null> }>;
+    protected fileList: NzUploadFile[] = [];
+    protected coverUid: string | null = null;
 
-    fileList: NzUploadFile[] = [];
-    coverUid: string | null = null;
-    previewImage: string | undefined = '';
-    previewVisible = false;
+    private router = inject(Router);
+    protected msg = inject(MessageService);
+    protected createCarMutation = injectCreateCarMutation();
 
-    protected fuelTypes = fuelTypes;
-    protected gearboxTypes = gearboxTypes;
-    protected bodyTypes = bodyTypes;
-
-    uploadPhoto = (file: NzUploadFile) => {
-        //todo
-        return 'todo';
+    constructor(private fb: FormBuilder, protected translateService: TranslateService) {
+        this.carDetailsForm = this.initializeForm();
     }
 
-    constructor(private fb: FormBuilder,
-                protected translateService: TranslateService,) {
-        this.carDetailsForm = this.initializeForm();
+    get isFormValid(): boolean {
+        return this.carDetailsForm.valid && this.fileList.length > 0;
     }
 
     private initializeForm() {
         return this.fb.group<{ [K in keyof Omit<CarDto, 'images'>]: FormControl<CarDto[K] | null> }>({
             id: this.fb.control<string | null>(null),
-            model: this.fb.control<string | null>(null),
-            make: this.fb.control<string | null>(null),
-            yearOfProduction: this.fb.control<number | null>(null),
-            mileage: this.fb.control<number | null>(null),
-            fuelType: this.fb.control<FuelType | null>(null),
-            power: this.fb.control<number | null>(null),
-            capacity: this.fb.control<number | null>(null),
-            doorCount: this.fb.control<number | null>(null),
-            bodyType: this.fb.control<BodyType | null>(null),
-            gearboxType: this.fb.control<GearboxType | null>(null),
-            description: this.fb.control<string | null>(null),
-            price: this.fb.control<number | null>(null),
+            model: this.fb.control<string | null>(null, Validators.required),
+            make: this.fb.control<string | null>(null, Validators.required),
+            yearOfProduction: this.fb.control<number | null>(null, [Validators.required, Validators.min(1886)]),
+            mileage: this.fb.control<number | null>(null, [Validators.required, Validators.min(0)]),
+            fuelType: this.fb.control<FuelType | null>(null, Validators.required),
+            power: this.fb.control<number | null>(null, [Validators.required, Validators.min(1)]),
+            capacity: this.fb.control<number | null>(null, [Validators.required, Validators.min(1)]),
+            doorCount: this.fb.control<number | null>(null, [Validators.required, Validators.min(1), Validators.max(9)]),
+            bodyType: this.fb.control<BodyType | null>(null, Validators.required),
+            gearboxType: this.fb.control<GearboxType | null>(null, Validators.required),
+            description: this.fb.control<string | null>(null, Validators.required),
+            price: this.fb.control<number | null>(null, [Validators.required, Validators.min(0)]),
+            isDraft: this.fb.control<boolean | null>(false),
         });
     }
 
-    onRemoveFile(uid: string): void {
-        this.fileList = this.fileList.filter(f => f.uid !== uid);
-        if (this.coverUid === uid) this.coverUid = null;
+    submitForm(isDraft = false): void {
+        if (!this.isFormValid) return;
+
+        const {id, ...carFields} = this.carDetailsForm.getRawValue();
+
+        const files = [...this.fileList]
+            .sort((a, b) => (a.uid === this.coverUid ? -1 : b.uid === this.coverUid ? 1 : 0))
+            .map(f => f.originFileObj as File)
+            .filter(Boolean);
+
+        this.createCarMutation.mutate(
+            {car: {...carFields as Omit<CarDto, 'id' | 'images'>, isDraft}, images: files},
+            {
+                onSuccess: () => {
+                    this.msg.success('car_saved_success', this.msgTpl);
+                    this.router.navigate(['/manage-cars']);
+                },
+                onError: () => {
+                    this.msg.error('car_saved_error', this.msgTpl);
+                },
+            }
+        );
     }
-
-    onSetCover(uid: string): void {
-        this.coverUid = uid;
-    }
-
-    submitForm() {
-        //todo
-    }
-
-    handlePreview = async (file: NzUploadFile): Promise<void> => {
-        if (!file.url && !file["preview"]) {
-            file["preview"] = await getBase64(file.originFileObj!);
-        }
-        this.previewImage = file.url || file["preview"];
-        this.previewVisible = true;
-    };
-
 }

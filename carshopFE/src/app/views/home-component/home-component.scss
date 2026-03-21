@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.show-all-btn {
+  background-color: var(--secondary-9) !important;
+  color: var(--primary-2) !important;
+  border-color: var(--secondary-9) !important;
+
+  &:hover {
+    background-color: var(--secondary-7) !important;
+    border-color: var(--secondary-7) !important;
+  }
+}

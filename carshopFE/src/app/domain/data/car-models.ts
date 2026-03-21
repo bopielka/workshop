@@ -1,0 +1,70 @@
+export const CAR_MAKES: string[] = [
+    'Abarth', 'Aiways', 'Aixam', 'Alfa Romeo', 'ALPINA', 'Alpine', 'ARI Motors',
+    'Aston Martin', 'Audi', 'Auto Union',
+    'Bentley', 'BMW', 'Borgward', 'Brilliance', 'Bugatti', 'BYD',
+    'Cadillac', 'Casalini', 'Chevrolet', 'Chrysler', 'Citroen', 'CUPRA',
+    'DAF', 'Dacia', 'Daewoo', 'Daihatsu', 'Datsun', 'DKW', 'Dodge', 'DS Automobiles',
+    'e.GO Mobile', 'Elaris', 'Electric Brands', 'Estrima',
+    'Ferrari', 'Fiat', 'Fisker', 'Ford',
+    'Genesis', 'Glas',
+    'Honda', 'Hummer', 'Hyundai', 'Hyundai Precision',
+    'Ineos', 'Infiniti', 'Isuzu',
+    'Jaguar', 'Jeep',
+    'Kia',
+    'Lada', 'Lamborghini', 'Lancia', 'Land Rover', 'Lexus', 'Ligier', 'Lotus', 'Lucid', 'Lynk & Co',
+    'Maserati', 'Maxus', 'Maybach', 'Mazda', 'McLaren', 'Mercedes-Benz', 'MG', 'Micro', 'Microcar', 'MINI', 'Mitsubishi', 'Morgan',
+    'NIO', 'Nissan', 'NSU',
+    'ORA', 'Opel',
+    'Peugeot', 'Polestar', 'Porsche', 'Proton',
+    'Renault', 'Rolls-Royce', 'Rover',
+    'Saab', 'SEAT', 'SERES', 'Škoda', 'Skoda', 'Smart', 'Sono Motors', 'SsangYong', 'Subaru', 'Suzuki',
+    'Talbot', 'Tesla', 'Togg', 'Toyota', 'Trabant',
+    'VinFast', 'Volvo', 'Volkswagen', 'VW Nutzfahrzeuge',
+    'Wartburg', 'WEY', 'Wiesmann',
+    'Yugo',
+    'ZEEKR',
+];
+
+const AUDI     = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Q2', 'Q3', 'Q4 e-tron', 'Q5', 'Q7', 'Q8', 'Q8 e-tron', 'TT', 'R8', 'e-tron', 'e-tron GT', 'S3', 'S4', 'S5', 'S6', 'S8', 'RS3', 'RS4', 'RS5', 'RS6', 'Allroad'];
+const DACIA    = ['Sandero', 'Duster', 'Logan', 'Spring', 'Jogger', 'Lodgy', 'Stepway', 'Dokker', 'Logan MCV', 'Bigster', 'Pick-Up'];
+const BMW      = ['1', '2', '3', '4', '5', '6', '7', '8', 'X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'iX', 'i3', 'i4', 'i5', 'i7', 'M2', 'M3', 'M4', 'M5', 'Z4'];
+const CITROEN  = ['C1', 'C2', 'C3', 'C3 Aircross', 'C4', 'C4 Cactus', 'C5 Aircross', 'C5 X', 'Berlingo', 'SpaceTourer', 'Jumpy', 'Jumper', 'Saxo', 'Xsara'];
+const FIAT     = ['500', '500X', '500L', '500e', '600', 'Panda', 'Tipo', 'Punto', 'Grande Punto', 'Bravo', 'Stilo', 'Doblo', 'Ducato', 'Qubo', 'Multipla', 'Seicento'];
+const FORD     = ['Fiesta', 'Focus', 'Mondeo', 'Kuga', 'Puma', 'EcoSport', 'Explorer', 'Mustang', 'Mustang Mach-E', 'Galaxy', 'S-Max', 'Edge', 'Ranger', 'Transit', 'Transit Custom', 'C-Max', 'B-Max'];
+const HYUNDAI  = ['i10', 'i20', 'i30', 'i40', 'Tucson', 'Santa Fe', 'Kona', 'Ioniq', 'Ioniq 5', 'Ioniq 6', 'Ioniq 9', 'ix20', 'ix35', 'Elantra', 'Bayon', 'Nexo'];
+const KIA      = ['Picanto', 'Rio', 'Ceed', 'ProCeed', 'Stinger', 'Sportage', 'Sorento', 'Niro', 'Stonic', 'EV3', 'EV6', 'EV9', 'Carnival', 'Telluride'];
+const MERCEDES = ['A-Klasa', 'B-Klasa', 'C-Klasa', 'E-Klasa', 'S-Klasa', 'CLA', 'CLS', 'GLA', 'GLB', 'GLC', 'GLE', 'GLS', 'AMG GT', 'EQA', 'EQB', 'EQC', 'EQE', 'EQS', 'Vito', 'Sprinter', 'V-Klasa'];
+const NISSAN   = ['Micra', 'Juke', 'Qashqai', 'X-Trail', 'Leaf', 'Ariya', 'Navara', 'Note', 'Murano', 'Pulsar', '370Z', 'GT-R', 'NV200', 'Townstar'];
+const OPEL     = ['Astra', 'Corsa', 'Insignia', 'Mokka', 'Crossland', 'Grandland', 'Zafira', 'Zafira-e', 'Meriva', 'Adam', 'Karl', 'Combo', 'Vivaro', 'Omega', 'Vectra'];
+const PEUGEOT  = ['107', '206', '207', '208', '301', '307', '308', '407', '408', '508', '2008', '3008', '5008', 'Partner', 'Rifter', 'Traveller', 'Boxer', 'Expert'];
+const RENAULT  = ['Twingo', 'Clio', 'Megane', 'Laguna', 'Talisman', 'Scenic', 'Espace', 'Captur', 'Kadjar', 'Arkana', 'Austral', 'Koleos', 'Zoe', 'Kangoo', 'Trafic', 'Master'];
+const SEAT     = ['Mii', 'Ibiza', 'Leon', 'Toledo', 'Altea', 'Alhambra', 'Exeo', 'Arona', 'Ateca', 'Tarraco', 'Formentor'];
+const SKODA    = ['Citigo', 'Fabia', 'Rapid', 'Scala', 'Octavia', 'Superb', 'Yeti', 'Kamiq', 'Karoq', 'Kodiaq', 'Enyaq', 'Slavia'];
+const TOYOTA   = ['Aygo', 'Aygo X', 'Yaris', 'Yaris Cross', 'Corolla', 'Camry', 'Avensis', 'Auris', 'Prius', 'C-HR', 'RAV4', 'Land Cruiser', 'Hilux', 'bZ4X', 'GR86', 'Supra', 'Proace'];
+const VW       = ['Up', 'Polo', 'Golf', 'Golf Plus', 'Jetta', 'Passat', 'Arteon', 'T-Cross', 'T-Roc', 'Tiguan', 'Touareg', 'ID.3', 'ID.4', 'ID.5', 'ID.7', 'Touran', 'Sharan', 'Caddy', 'Transporter', 'Crafter'];
+const VOLVO    = ['C30', 'C40', 'S60', 'S90', 'V40', 'V60', 'V70', 'V90', 'XC40', 'XC60', 'XC90', 'EX30', 'EX40', 'EX90'];
+
+export const CAR_MODELS: Record<string, string[]> = {
+    'audi':          AUDI,
+    'dacia':         DACIA,
+    'bmw':           BMW,
+    'citroen':       CITROEN,
+    'citroën':       CITROEN,
+    'fiat':          FIAT,
+    'ford':          FORD,
+    'hyundai':       HYUNDAI,
+    'kia':           KIA,
+    'mercedes':      MERCEDES,
+    'mercedes-benz': MERCEDES,
+    'nissan':        NISSAN,
+    'opel':          OPEL,
+    'peugeot':       PEUGEOT,
+    'renault':       RENAULT,
+    'seat':          SEAT,
+    'skoda':         SKODA,
+    'škoda':         SKODA,
+    'toyota':        TOYOTA,
+    'vw':            VW,
+    'volkswagen':    VW,
+    'volvo':         VOLVO,
+};

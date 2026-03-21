@@ -1,0 +1,28 @@
+<app-page-wrapper [title]="'manage_cars' | translate">
+    <button actions nz-button nzSize="large" nzShape="round" routerLink="/addCar"
+            style="border: 2px solid var(--primary-5)">
+        <nz-icon nzType="plus" nzTheme="outline"/>
+        {{ 'add_car' | translate }}
+    </button>
+
+    <app-cars-grid
+            [cars]="carsQuery.data()?.resources ?? []"
+            [isLoading]="carsQuery.isLoading()"
+            [totalRecordCount]="carsQuery.data()?.totalRecordCount ?? 0"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage()"
+            [cardActionsTpl]="actionsTpl"
+            (pageChange)="onPageChange($event)"
+            (searchChange)="onSearchChange($event)"/>
+</app-page-wrapper>
+
+<ng-template #actionsTpl let-car>
+    <button nz-button nzShape="round" (click)="onEdit(car.id)">
+        <nz-icon nzType="edit" nzTheme="outline"/>
+        {{ 'edit' | translate }}
+    </button>
+    <button nz-button nzShape="round" nzDanger (click)="onDelete(car.id)">
+        <nz-icon nzType="delete" nzTheme="outline"/>
+        {{ 'remove_car' | translate }}
+    </button>
+</ng-template>

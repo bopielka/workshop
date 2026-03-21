@@ -17,5 +17,6 @@ export interface CarDto {
     bodyType: BodyType;
     description: string;
     price: number;
+    isDraft: boolean;
     images: CarImageDto[];
 }

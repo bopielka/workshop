@@ -1,0 +1,14 @@
+<app-page-wrapper [title]="'main_page' | translate">
+    <app-contact-pill actions/>
+    <div class="flex flex-row flex-wrap gap-4 justify-center">
+        @for (car of cars; track car.id) {
+            <app-car-card-component [car]="car"/>
+        }
+    </div>
+    <div class="flex justify-center pt-6">
+        <button nz-button nzShape="round" nzSize="large" routerLink="/cars" class="show-all-btn">
+            <nz-icon nzType="plus" nzTheme="outline"/>
+            {{ 'show_all' | translate }}
+        </button>
+    </div>
+</app-page-wrapper>

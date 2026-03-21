@@ -1,5 +1,9 @@
 package com.example.carshop.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum FuelType {
-    GASOLINE, DIESEL, GAS
+    @JsonProperty("gasoline") GASOLINE,
+    @JsonProperty("diesel")   DIESEL,
+    @JsonProperty("gas")      GAS
 }

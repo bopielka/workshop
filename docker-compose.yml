@@ -91,12 +91,10 @@ services:
       KC_USER_EMAIL: ${KC_USER_EMAIL}
       KC_USER_PASSWORD: ${KC_USER_PASSWORD}
       KC_CLIENT_ID: ${KC_CLIENT_ID}
-      KC_REDIRECT_URIS: ${KC_REDIRECT_URIS}
+      KC_REDIRECT_URIS_JSON: ${KC_REDIRECT_URIS_JSON}
       KC_WEB_ORIGINS: ${KC_WEB_ORIGINS}
       KC_POST_LOGOUT_URIS: ${KC_POST_LOGOUT_URIS}
-        # (optionally)
-#      KC_REDIRECT_URIS_JSON: ${KC_REDIRECT_URIS_JSON}
-#      KC_POST_LOGOUT_URIS_JSON: ${KC_POST_LOGOUT_URIS_JSON}
+      KC_FORCE_REIMPORT: ${KC_FORCE_REIMPORT:-false}
     depends_on: [ carshop-db ]
     networks: [ carshopdatabasenet ]
     expose:

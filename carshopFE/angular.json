@@ -67,6 +67,12 @@
             },
             "development": {
               "buildTarget": "carshopFE:build:development"
+            },
+            "local": {
+              "buildTarget": "carshopFE:build:development",
+              "port": 4200,
+              "ssl": false,
+              "proxyConfig": "proxy.conf.local.json"
             }
           },
           "defaultConfiguration": "development",

@@ -35,9 +35,21 @@ sed -e "s|\${KC_REALM_ID}|$(esc "${KC_REALM_ID}")|g" \
     -e "s|\${POST_LOGOUT_URIS_STR}|$(esc "${PLU_STR}")|g" \
     "$TPL" > "$OUT"
 
+if [ -n "${KC_HOSTNAME_URL:-}" ]; then
+  HOSTNAME_FLAG="--hostname=${KC_HOSTNAME_URL}"
+else
+  HOSTNAME_FLAG=""
+fi
+
+# Set KC_FORCE_REIMPORT=true to override existing realm (resets all users to template state)
+if [ "${KC_FORCE_REIMPORT:-false}" = "true" ]; then
+  echo "KC_FORCE_REIMPORT=true: overriding existing realm..."
+  /opt/keycloak/bin/kc.sh import --file="$OUT" --override=true
+fi
+
 exec /opt/keycloak/bin/kc.sh start-dev --http-port=8080 \
  --import-realm \
  --http-relative-path="${KC_HTTP_RELATIVE_PATH:-/auth}" \
  --proxy-headers="${KC_PROXY_HEADERS:-xforwarded}" \
  --hostname-strict="${KC_HOSTNAME_STRICT:-false}" \
- --hostname="${KC_HOSTNAME_URL:-https://localhost:8443/auth}"
+ ${HOSTNAME_FLAG}

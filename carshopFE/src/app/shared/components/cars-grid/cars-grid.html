@@ -1,0 +1,33 @@
+<div class="list-layout">
+    <div class="top-bar">
+        <app-search-bar (searchChange)="searchChange.emit($event)"/>
+        <div class="pagination-wrapper">
+            <nz-pagination
+                    [nzPageIndex]="currentPage()"
+                    [nzTotal]="totalRecordCount()"
+                    [nzPageSize]="pageSize()"
+                    [nzShowSizeChanger]="false"
+                    (nzPageIndexChange)="pageChange.emit($event)"/>
+        </div>
+    </div>
+
+    @if (isLoading()) {
+        <div class="loading-center">
+            <nz-spin nzSize="large"/>
+        </div>
+    } @else {
+        <div class="cars-grid">
+            @for (car of cars(); track car.id) {
+                <div class="car-item">
+                    <app-car-card-component [car]="car"/>
+                    @if (cardActionsTpl()) {
+                        <div class="car-item__actions">
+                            <ng-container [ngTemplateOutlet]="cardActionsTpl()!"
+                                          [ngTemplateOutletContext]="{$implicit: car}"/>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>

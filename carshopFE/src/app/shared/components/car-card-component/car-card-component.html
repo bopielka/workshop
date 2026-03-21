@@ -1,3 +1,18 @@
-<nz-card class="w-[450px] h-full" nzTitle="Card title">
-    <p>Card content</p>
-</nz-card>
+<div class="car-card" [class.car-card--draft]="car().isDraft" (click)="navigate()">
+    @if (car().isDraft) {
+        <div class="car-card__draft-badge">{{ 'draft' | translate }}</div>
+    }
+    <div class="car-card__header">
+        <div class="car-card__info">
+            <span class="car-card__title">{{ car().model }} {{ car().make }}</span>
+            <span class="car-card__year">{{ car().yearOfProduction }}</span>
+        </div>
+        <div class="car-card__price-col">
+            <span class="car-card__price">{{ car().price | currency:'PLN':'symbol':'1.0-0':'pl' }}</span>
+            <span class="car-card__year">{{ car().mileage | number:'1.0-0':'pl' }} km</span>
+        </div>
+    </div>
+    <div class="car-card__image">
+        <img [src]="imageUrl" [alt]="car().make + ' ' + car().model"/>
+    </div>
+</div>

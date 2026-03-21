@@ -1,6 +1,11 @@
 <div class="page">
     <app-navbar-component/>
     <div class="page-content content-background">
+        @if (loading()) {
+            <div class="page-loading">
+                <nz-spin nzSize="large"/>
+            </div>
+        }
         <router-outlet/>
     </div>
     <app-footer-component/>

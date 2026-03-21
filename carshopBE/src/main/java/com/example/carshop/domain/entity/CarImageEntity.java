@@ -26,7 +26,6 @@ public class CarImageEntity {
     @Column(name = "size", nullable = false)
     private long size;
 
-    @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "data", nullable = false, columnDefinition = "bytea")
     @JsonIgnore

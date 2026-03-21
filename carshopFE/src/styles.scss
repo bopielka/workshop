@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  height: 100dvh;
+  overflow: hidden;
+}
+
 $color-map: (
         'primary-1': #FAFAF8,
         'primary-2': #F4F4F0,
@@ -63,11 +68,80 @@ $opacity-steps: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 8
   }
 }
 
+.car-edit-modal {
+  .ant-modal-content {
+    border-radius: 12px !important;
+    border: 2px solid var(--primary-5) !important;
+    overflow: hidden;
+  }
+
+  .ant-modal-title {
+    font-size: 2rem !important;
+    font-weight: 700;
+  }
+}
+
+.confirm-modal {
+  .ant-modal-content {
+    border-radius: 12px !important;
+    border: 2px solid var(--primary-5) !important;
+    overflow: hidden;
+  }
+
+  .ant-modal-title {
+    font-size: 1.15rem !important;
+    font-weight: 600;
+  }
+
+  .ant-btn {
+    border-radius: 9999px !important;
+  }
+}
+
+.gallery-modal {
+  .ant-modal-content {
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow: hidden;
+  }
+}
+
+ul.ant-pagination {
+  margin: 0;
+}
+
+.ant-message-notice-content {
+  border-radius: 9999px;
+  border: 2px solid var(--primary-5);
+  font-size: 20px;
+  padding: 10px 20px;
+
+  .anticon {
+    font-size: 22px;
+  }
+}
+
+.msg-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 12px;
+  opacity: 0.6;
+  padding: 0;
+  vertical-align: middle;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .hover-pointer {
   :hover {
     cursor: pointer;
   }
 }
+
 
 .ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
   margin: 0 2px !important;

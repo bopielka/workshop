@@ -1,0 +1,43 @@
+<ng-template #msgTpl>
+    <span>{{ msg.msgText() }}</span>
+    <button class="msg-close-btn" (click)="msg.dismiss()">✕</button>
+</ng-template>
+
+@if (carQuery.isLoading()) {
+    <div class="loading-center">
+        <nz-spin nzSize="large"/>
+    </div>
+} @else {
+    <form nz-form nzLayout="vertical" [formGroup]="carDetailsForm">
+        <app-car-form-fields [(fileList)]="fileList" [(coverUid)]="coverUid"/>
+    </form>
+
+    <div class="edit-form-actions">
+        <button type="button" nz-button nzShape="round" nzSize="large" (click)="close()">
+            <nz-icon nzType="rollback" nzTheme="outline"/>
+            {{ 'cancel' | translate }}
+        </button>
+        @if (authService.hasRole(Role.MANAGE_CARS)) {
+            @if (carDetailsForm.getRawValue().isDraft) {
+                <button type="button" nz-button nzType="primary" nzShape="round" nzSize="large"
+                        [disabled]="!isFormValid || updateMutation.isPending()"
+                        (click)="toggleDraft()">
+                    <nz-icon nzType="check-circle" nzTheme="outline"/>
+                    {{ 'activate_listing' | translate }}
+                </button>
+            } @else {
+                <button type="button" nz-button nzDanger nzShape="round" nzSize="large"
+                        [disabled]="!isFormValid || updateMutation.isPending()"
+                        (click)="toggleDraft()">
+                    <nz-icon nzType="stop" nzTheme="outline"/>
+                    {{ 'deactivate_listing' | translate }}
+                </button>
+            }
+        }
+        <button type="button" nz-button nzShape="round" nzSize="large" class="save-btn" (click)="submitForm()"
+                [disabled]="!isFormValid || updateMutation.isPending()">
+            <nz-icon nzType="save" nzTheme="outline"/>
+            {{ 'save' | translate }}
+        </button>
+    </div>
+}

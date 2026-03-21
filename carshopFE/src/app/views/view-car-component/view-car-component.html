@@ -1,0 +1,84 @@
+<app-page-wrapper [title]="title()">
+    @if (carQuery.data(); as car) {
+        <div actions class="car-actions">
+            <span class="car-price">{{ car.price | currency:'PLN':'symbol':'1.0-0':'pl' }}</span>
+            <button nz-button nzShape="round" nzSize="large" (click)="openGalleryModal()">
+                <nz-icon nzType="zoom-in" nzTheme="outline"/>
+                {{ 'zoom_photos' | translate }}
+            </button>
+            @if (authService.hasRole(Role.MANAGE_CARS)) {
+                <button nz-button nzShape="round" nzSize="large"
+                        [nzType]="car.isDraft ? 'primary' : 'default'"
+                        [nzDanger]="!car.isDraft"
+                        [disabled]="toggleDraftMutation.isPending()"
+                        (click)="toggleDraft()">
+                    <nz-icon [nzType]="car.isDraft ? 'check-circle' : 'stop'" nzTheme="outline"/>
+                    {{ (car.isDraft ? 'activate_listing' : 'deactivate_listing') | translate }}
+                </button>
+                <button nz-button nzShape="round" nzSize="large" (click)="openEditModal()">
+                    <nz-icon nzType="edit" nzTheme="outline"/>
+                    {{ 'edit' | translate }}
+                </button>
+            }
+        </div>
+    }
+    @if (carQuery.isLoading()) {
+        <div class="loading-center">
+            <nz-spin nzSize="large"/>
+        </div>
+    } @else if (carQuery.data(); as car) {
+        <div class="car-view">
+            <div class="car-view__info">
+                <div class="info-row">
+                    <span class="info-row__label">{{ 'year_of_production' | translate }}</span>
+                    <span class="info-row__value">{{ car.yearOfProduction }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-row__label">{{ 'mileage' | translate }}</span>
+                    <span class="info-row__value">{{ car.mileage | number:'1.0-0':'pl' }} km</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-row__label">{{ 'fuel_type' | translate }}</span>
+                    <span class="info-row__value">{{ car.fuelType | lowercase | translate }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-row__label">{{ 'power' | translate }}</span>
+                    <span class="info-row__value">{{ car.power }} KM</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-row__label">{{ 'capacity' | translate }}</span>
+                    <span class="info-row__value">{{ car.capacity }} cm³</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-row__label">{{ 'gearbox' | translate }}</span>
+                    <span class="info-row__value">{{ car.gearboxType | lowercase | translate }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-row__label">{{ 'body_type' | translate }}</span>
+                    <span class="info-row__value">{{ car.bodyType | lowercase | translate }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-row__label">{{ 'door_count' | translate }}</span>
+                    <span class="info-row__value">{{ car.doorCount }}</span>
+                </div>
+            </div>
+
+            @if (car.description) {
+                <div class="car-view__description">
+                    <span class="info-row__label">{{ 'description' | translate }}</span>
+                    <p class="car-view__description-text">{{ car.description }}</p>
+                </div>
+            }
+
+            <div class="car-view__gallery">
+                <app-image-carousel [fileList]="carouselFiles()" [coverUid]="coverUid()" (imageClick)="openGalleryModal()"/>
+            </div>
+        </div>
+    }
+</app-page-wrapper>
+
+<ng-template #galleryTpl>
+    <div style="position: absolute; inset: 0">
+        <app-image-carousel [fileList]="carouselFiles()" [coverUid]="coverUid()" [zoomable]="false"/>
+    </div>
+</ng-template>
