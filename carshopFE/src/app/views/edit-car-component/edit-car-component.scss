@@ -1,31 +1,31 @@
 .edit-form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
 }
 
 .save-btn {
-    background-color: var(--secondary-9) !important;
+  background-color: var(--secondary-9) !important;
+  color: var(--primary-2) !important;
+  border-color: var(--secondary-9) !important;
+
+  &:hover {
+    background-color: var(--secondary-7) !important;
+    border-color: var(--secondary-7) !important;
+  }
+
+  &:disabled {
+    background-color: var(--primary-5) !important;
+    border-color: var(--primary-5) !important;
     color: var(--primary-2) !important;
-    border-color: var(--secondary-9) !important;
-
-    &:hover {
-        background-color: var(--secondary-7) !important;
-        border-color: var(--secondary-7) !important;
-    }
-
-    &:disabled {
-        background-color: var(--primary-5) !important;
-        border-color: var(--primary-5) !important;
-        color: var(--primary-2) !important;
-        cursor: not-allowed;
-    }
+    cursor: not-allowed;
+  }
 }
 
 .loading-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }

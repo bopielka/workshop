@@ -108,7 +108,9 @@ nz-carousel {
     cursor: pointer;
     padding: 0;
     flex-shrink: 0;
-    transition: opacity 0.2s, width 0.2s;
+    transition:
+      opacity 0.2s,
+      width 0.2s;
 
     &--active {
       opacity: 1;

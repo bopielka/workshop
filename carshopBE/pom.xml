@@ -32,6 +32,9 @@
 		<postgresql.version>42.7.4</postgresql.version>
 		<lombok.version>2.0.17</lombok.version>
 		<logback.version>1.5.18</logback.version>
+		<spotless.version>2.43.0</spotless.version>
+		<eclipse-formatter.version>4.30</eclipse-formatter.version>
+		<checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -76,6 +79,56 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Spotless: code formatting (equivalent of Prettier for Java) -->
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>${spotless.version}</version>
+				<configuration>
+					<java>
+						<eclipse>
+							<version>${eclipse-formatter.version}</version>
+							<file>eclipse-formatter.xml</file>
+						</eclipse>
+						<trimTrailingWhitespace/>
+						<endWithNewline/>
+						<importOrder>
+							<order>java,javax,org,com,,\#</order>
+						</importOrder>
+					</java>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<phase>verify</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Checkstyle: code linting (equivalent of ESLint for Java) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${checkstyle-plugin.version}</version>
+				<configuration>
+					<configLocation>checkstyle.xml</configLocation>
+					<consoleOutput>true</consoleOutput>
+					<failsOnError>true</failsOnError>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>checkstyle</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

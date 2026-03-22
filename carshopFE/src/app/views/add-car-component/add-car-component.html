@@ -1,17 +1,32 @@
 <ng-template #msgTpl>
-    <span>{{ msg.msgText() }}</span>
-    <button class="msg-close-btn" (click)="msg.dismiss()">✕</button>
+  <span>{{ msg.msgText() }}</span>
+  <button class="msg-close-btn" (click)="msg.dismiss()">✕</button>
 </ng-template>
 
 <app-page-wrapper [title]="'add_car' | translate">
-    <button actions nz-button nzSize="large" nzShape="round" class="draft-btn" (click)="submitForm(true)">
-        {{ 'save_draft' | translate }}
-    </button>
-    <button actions nz-button nzSize="large" nzShape="round" class="save-btn" (click)="submitForm()" [disabled]="!isFormValid">
-        <nz-icon nzType="save" nzTheme="outline"/>
-        {{ 'save' | translate }}
-    </button>
-    <form nz-form nzLayout="vertical" [formGroup]="carDetailsForm" (ngSubmit)="submitForm()">
-        <app-car-form-fields [(fileList)]="fileList" [(coverUid)]="coverUid"/>
-    </form>
+  <button
+    actions
+    nz-button
+    nzSize="large"
+    nzShape="round"
+    class="draft-btn"
+    (click)="submitForm(true)"
+  >
+    {{ 'save_draft' | translate }}
+  </button>
+  <button
+    actions
+    nz-button
+    nzSize="large"
+    nzShape="round"
+    class="save-btn"
+    (click)="submitForm()"
+    [disabled]="!isFormValid"
+  >
+    <nz-icon nzType="save" nzTheme="outline" />
+    {{ 'save' | translate }}
+  </button>
+  <form nz-form nzLayout="vertical" [formGroup]="carDetailsForm" (ngSubmit)="submitForm()">
+    <app-car-form-fields [(fileList)]="fileList" [(coverUid)]="coverUid" />
+  </form>
 </app-page-wrapper>

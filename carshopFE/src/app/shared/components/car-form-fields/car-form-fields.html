@@ -1,161 +1,206 @@
 <div class="flex flex-wrap form-cols">
-    <div class="px-2.5">
-        <nz-form-item class="field-full">
-            <nz-form-label nzNoColon=true>{{ 'model' | translate }}:</nz-form-label>
-            <nz-form-control>
-                <input class="rounded-2xl" nzSize="large" nz-input formControlName="model"
-                       [nzAutocomplete]="modelAuto"
-                       (input)="onModelInput($any($event.target).value)"/>
-                <nz-autocomplete [nzDataSource]="modelSuggestions" nzBackfill #modelAuto/>
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item class="field-full">
-            <nz-form-label nzNoColon=true>{{ 'make' | translate }}:</nz-form-label>
-            <nz-form-control>
-                <input class="rounded-2xl" nzSize="large" nz-input type="text" formControlName="make"
-                       [nzAutocomplete]="makeAuto"
-                       (input)="onMakeInput($any($event.target).value)"/>
-                <nz-autocomplete [nzDataSource]="makeSuggestions" nzBackfill #makeAuto/>
-            </nz-form-control>
-        </nz-form-item>
-        <div class="field-pair">
-            <nz-form-item class="field-half">
-                <nz-form-label nzNoColon=true>{{ 'year_of_production' | translate }}:</nz-form-label>
-                <nz-form-control>
-                    <input class="rounded-2xl" nzSize="large" nz-input type="number" min="1886" formControlName="yearOfProduction"/>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item class="field-half">
-                <nz-form-label nzNoColon=true>{{ 'mileage' | translate }}:</nz-form-label>
-                <nz-form-control>
-                    <nz-input-wrapper nzSize="large" nzAddonAfter="km">
-                        <input class="rounded-2xl" nz-input type="number" min="0" formControlName="mileage"/>
-                    </nz-input-wrapper>
-                </nz-form-control>
-            </nz-form-item>
-        </div>
-        <div class="field-pair">
-            <nz-form-item class="field-half">
-                <nz-form-label nzNoColon=true>{{ 'fuel_type' | translate }}:</nz-form-label>
-                <nz-form-control>
-                    <nz-select nzSize="large" class="rounded-2xl w-full" formControlName="fuelType">
-                        @for (fuelType of fuelTypes; track fuelType) {
-                            <nz-option [nzValue]="fuelType" [nzLabel]="translateService.instant(fuelType)"/>
-                        }
-                    </nz-select>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item class="field-half">
-                <nz-form-label nzNoColon=true>{{ 'power' | translate }}:</nz-form-label>
-                <nz-form-control>
-                    <nz-input-wrapper nzSize="large" nzAddonAfter="KM">
-                        <input class="rounded-2xl" nz-input type="number" min="1" formControlName="power"/>
-                    </nz-input-wrapper>
-                </nz-form-control>
-            </nz-form-item>
-        </div>
-        <div class="field-pair">
-            <nz-form-item class="field-half">
-                <nz-form-label nzNoColon=true>{{ 'capacity' | translate }}:</nz-form-label>
-                <nz-form-control>
-                    <nz-input-wrapper nzSize="large" nzAddonAfter="L">
-                        <input class="rounded-2xl" nz-input type="number" min="1" formControlName="capacity"/>
-                    </nz-input-wrapper>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item class="field-half">
-                <nz-form-label nzNoColon=true>{{ 'door_count' | translate }}:</nz-form-label>
-                <nz-form-control>
-                    <input class="rounded-2xl" nzSize="large" nz-input type="number" min="1" max="9" formControlName="doorCount"/>
-                </nz-form-control>
-            </nz-form-item>
-        </div>
-        <nz-form-item class="field-full">
-            <nz-form-label nzNoColon=true>{{ 'gearbox' | translate }}:</nz-form-label>
-            <nz-form-control>
-                <nz-select nzSize="large" class="rounded-2xl w-full" formControlName="gearboxType">
-                    @for (gearboxType of gearboxTypes; track gearboxType) {
-                        <nz-option [nzValue]="gearboxType" [nzLabel]="translateService.instant(gearboxType)"/>
-                    }
-                </nz-select>
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item class="field-full">
-            <nz-form-label nzNoColon=true>{{ 'body_type' | translate }}:</nz-form-label>
-            <nz-form-control>
-                <nz-select nzSize="large" class="rounded-2xl w-full" formControlName="bodyType">
-                    @for (bodyType of sortedBodyTypes; track bodyType) {
-                        <nz-option [nzValue]="bodyType" [nzLabel]="translateService.instant(bodyType)"/>
-                    }
-                </nz-select>
-            </nz-form-control>
-        </nz-form-item>
+  <div class="px-2.5">
+    <nz-form-item class="field-full">
+      <nz-form-label nzNoColon="true">{{ 'model' | translate }}:</nz-form-label>
+      <nz-form-control>
+        <input
+          class="rounded-2xl"
+          nzSize="large"
+          nz-input
+          formControlName="model"
+          [nzAutocomplete]="modelAuto"
+          (input)="onModelInput($any($event.target).value)"
+        />
+        <nz-autocomplete [nzDataSource]="modelSuggestions" nzBackfill #modelAuto />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="field-full">
+      <nz-form-label nzNoColon="true">{{ 'make' | translate }}:</nz-form-label>
+      <nz-form-control>
+        <input
+          class="rounded-2xl"
+          nzSize="large"
+          nz-input
+          type="text"
+          formControlName="make"
+          [nzAutocomplete]="makeAuto"
+          (input)="onMakeInput($any($event.target).value)"
+        />
+        <nz-autocomplete [nzDataSource]="makeSuggestions" nzBackfill #makeAuto />
+      </nz-form-control>
+    </nz-form-item>
+    <div class="field-pair">
+      <nz-form-item class="field-half">
+        <nz-form-label nzNoColon="true">{{ 'year_of_production' | translate }}:</nz-form-label>
+        <nz-form-control>
+          <input
+            class="rounded-2xl"
+            nzSize="large"
+            nz-input
+            type="number"
+            min="1886"
+            formControlName="yearOfProduction"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="field-half">
+        <nz-form-label nzNoColon="true">{{ 'mileage' | translate }}:</nz-form-label>
+        <nz-form-control>
+          <nz-input-wrapper nzSize="large" nzAddonAfter="km">
+            <input class="rounded-2xl" nz-input type="number" min="0" formControlName="mileage" />
+          </nz-input-wrapper>
+        </nz-form-control>
+      </nz-form-item>
     </div>
+    <div class="field-pair">
+      <nz-form-item class="field-half">
+        <nz-form-label nzNoColon="true">{{ 'fuel_type' | translate }}:</nz-form-label>
+        <nz-form-control>
+          <nz-select nzSize="large" class="rounded-2xl w-full" formControlName="fuelType">
+            @for (fuelType of fuelTypes; track fuelType) {
+              <nz-option [nzValue]="fuelType" [nzLabel]="translateService.instant(fuelType)" />
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="field-half">
+        <nz-form-label nzNoColon="true">{{ 'power' | translate }}:</nz-form-label>
+        <nz-form-control>
+          <nz-input-wrapper nzSize="large" nzAddonAfter="KM">
+            <input class="rounded-2xl" nz-input type="number" min="1" formControlName="power" />
+          </nz-input-wrapper>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="field-pair">
+      <nz-form-item class="field-half">
+        <nz-form-label nzNoColon="true">{{ 'capacity' | translate }}:</nz-form-label>
+        <nz-form-control>
+          <nz-input-wrapper nzSize="large" nzAddonAfter="L">
+            <input class="rounded-2xl" nz-input type="number" min="1" formControlName="capacity" />
+          </nz-input-wrapper>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="field-half">
+        <nz-form-label nzNoColon="true">{{ 'door_count' | translate }}:</nz-form-label>
+        <nz-form-control>
+          <input
+            class="rounded-2xl"
+            nzSize="large"
+            nz-input
+            type="number"
+            min="1"
+            max="9"
+            formControlName="doorCount"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <nz-form-item class="field-full">
+      <nz-form-label nzNoColon="true">{{ 'gearbox' | translate }}:</nz-form-label>
+      <nz-form-control>
+        <nz-select nzSize="large" class="rounded-2xl w-full" formControlName="gearboxType">
+          @for (gearboxType of gearboxTypes; track gearboxType) {
+            <nz-option [nzValue]="gearboxType" [nzLabel]="translateService.instant(gearboxType)" />
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="field-full">
+      <nz-form-label nzNoColon="true">{{ 'body_type' | translate }}:</nz-form-label>
+      <nz-form-control>
+        <nz-select nzSize="large" class="rounded-2xl w-full" formControlName="bodyType">
+          @for (bodyType of sortedBodyTypes; track bodyType) {
+            <nz-option [nzValue]="bodyType" [nzLabel]="translateService.instant(bodyType)" />
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
 
-    <div class="px-2.5 right-col">
-        <nz-form-item class="field-full">
-            <nz-form-label nzNoColon=true>{{ 'photos' | translate }}:</nz-form-label>
-            <nz-form-control>
-                <nz-upload
-                        class="rounded-2xl"
-                        [nzFileList]="fileList()"
-                        [nzBeforeUpload]="beforeUpload"
-                        [nzPreview]="handlePreview"
-                        [nzShowButton]="fileList().length < 8"
-                        [nzShowUploadList]="false"
-                        nzFileType="image/png,image/jpeg"
-                        nzType="drag"
-                        nzMultiple="true"
-                >
-                    <div>
-                        <nz-icon nzType="plus"/>
-                        <div style="margin-top: 8px">{{ 'upload' | translate }}</div>
-                    </div>
-                </nz-upload>
-                <nz-modal
-                        [nzVisible]="previewVisible"
-                        [nzContent]="modalContent"
-                        [nzFooter]="null"
-                        (nzOnCancel)="previewVisible = false"
-                >
-                    <ng-template #modalContent>
-                        <img [src]="previewImage" style="width: 100%" alt="preview-image"/>
-                    </ng-template>
-                </nz-modal>
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item class="field-full description-item">
-            <nz-form-label nzNoColon=true>{{ 'description' | translate }}:</nz-form-label>
-            <nz-form-control>
-                <textarea class="rounded-2xl" nzSize="large" nz-input formControlName="description"></textarea>
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item class="field-full">
-            <nz-form-label nzNoColon=true>{{ 'price' | translate }}:</nz-form-label>
-            <nz-form-control>
-                <nz-input-wrapper nzSize="large" [nzAddonAfter]="translateService.instant('currency')">
-                    <input class="rounded-2xl" nz-input type="number" min="0" formControlName="price"/>
-                </nz-input-wrapper>
-            </nz-form-control>
-        </nz-form-item>
-    </div>
+  <div class="px-2.5 right-col">
+    <nz-form-item class="field-full">
+      <nz-form-label nzNoColon="true">{{ 'photos' | translate }}:</nz-form-label>
+      <nz-form-control>
+        <nz-upload
+          class="rounded-2xl"
+          [nzFileList]="fileList()"
+          [nzBeforeUpload]="beforeUpload"
+          [nzPreview]="handlePreview"
+          [nzShowButton]="fileList().length < 8"
+          [nzShowUploadList]="false"
+          nzFileType="image/png,image/jpeg"
+          nzType="drag"
+          nzMultiple="true"
+        >
+          <div>
+            <nz-icon nzType="plus" />
+            <div style="margin-top: 8px">{{ 'upload' | translate }}</div>
+          </div>
+        </nz-upload>
+        <nz-modal
+          [nzVisible]="previewVisible"
+          [nzContent]="modalContent"
+          [nzFooter]="null"
+          (nzOnCancel)="previewVisible = false"
+        >
+          <ng-template #modalContent>
+            <img [src]="previewImage" style="width: 100%" alt="preview-image" />
+          </ng-template>
+        </nz-modal>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="field-full description-item">
+      <nz-form-label nzNoColon="true">{{ 'description' | translate }}:</nz-form-label>
+      <nz-form-control>
+        <textarea
+          class="rounded-2xl"
+          nzSize="large"
+          nz-input
+          formControlName="description"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="field-full">
+      <nz-form-label nzNoColon="true">{{ 'price' | translate }}:</nz-form-label>
+      <nz-form-control>
+        <nz-input-wrapper nzSize="large" [nzAddonAfter]="translateService.instant('currency')">
+          <input class="rounded-2xl" nz-input type="number" min="0" formControlName="price" />
+        </nz-input-wrapper>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
 
-    <div class="carousel-col">
-        <app-image-carousel #carousel
-                            [fileList]="fileList()"
-                            [coverUid]="coverUid()"
-                            (removeFile)="onRemoveFile($event)"
-                            (setCover)="onSetCover($event)">
-            <button type="button" actions nz-button nzShape="round" [disabled]="carousel.isCurrentMain"
-                    (click)="carousel.setAsCover()">
-                <nz-icon nzType="star" nzTheme="outline"/>
-                {{ (carousel.isCurrentMain ? 'is_main_photo' : 'set_as_main') | translate }}
-            </button>
-            <button type="button" actions nz-button nzShape="round" nzDanger
-                    (click)="carousel.removeCurrent()">
-                <nz-icon nzType="delete" nzTheme="outline"/>
-                {{ 'delete_photo' | translate }}
-            </button>
-        </app-image-carousel>
-    </div>
+  <div class="carousel-col">
+    <app-image-carousel
+      #carousel
+      [fileList]="fileList()"
+      [coverUid]="coverUid()"
+      (removeFile)="onRemoveFile($event)"
+      (setCover)="onSetCover($event)"
+    >
+      <button
+        type="button"
+        actions
+        nz-button
+        nzShape="round"
+        [disabled]="carousel.isCurrentMain"
+        (click)="carousel.setAsCover()"
+      >
+        <nz-icon nzType="star" nzTheme="outline" />
+        {{ (carousel.isCurrentMain ? 'is_main_photo' : 'set_as_main') | translate }}
+      </button>
+      <button
+        type="button"
+        actions
+        nz-button
+        nzShape="round"
+        nzDanger
+        (click)="carousel.removeCurrent()"
+      >
+        <nz-icon nzType="delete" nzTheme="outline" />
+        {{ 'delete_photo' | translate }}
+      </button>
+    </app-image-carousel>
+  </div>
 </div>

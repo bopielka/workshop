@@ -4,57 +4,58 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
   height: 100dvh;
   overflow: hidden;
 }
 
 $color-map: (
-        'primary-1': #FAFAF8,
-        'primary-2': #F4F4F0,
-        'primary-3': #EBEBDF,
-        'primary-4': #E3E3D7,
-        'primary-5': #CECEC0,
-        'primary-6': #B5B5A6,
-        'primary-7': #94948A,
-        'primary-8': #707068,
-        'primary-9': #4C4C44,
-        'secondary-1': #EEF0F2,
-        'secondary-2': #D4D9DE,
-        'secondary-3': #AEBAC4,
-        'secondary-4': #8698A6,
-        'secondary-5': #5E7588,
-        'secondary-6': #3D5769,
-        'secondary-7': #26404F,
-        'secondary-8': #1A2B36,
-        'secondary-9': #121B22,
-        'success-1': #F0FBF0,
-        'success-2': #D4F0D5,
-        'success-3': #A8DDA9,
-        'success-4': #74C476,
-        'success-5': #4CAF50,
-        'success-6': #388E3C,
-        'success-7': #2A6E2D,
-        'success-8': #1B4D1E,
-        'success-9': #0F2D11,
-        'error-1': #FFF0F0,
-        'error-2': #FCDADA,
-        'error-3': #F7AEAE,
-        'error-4': #F07070,
-        'error-5': #D43030,
-        'error-6': #B01818,
-        'error-7': #930002,
-        'error-8': #720001,
-        'error-9': #581816,
-        'warning-1': #FFFBF0,
-        'warning-2': #FFF3D0,
-        'warning-3': #FFE49A,
-        'warning-4': #FFD060,
-        'warning-5': #FFB520,
-        'warning-6': #E89000,
-        'warning-7': #C47000,
-        'warning-8': #9C5400,
-        'warning-9': #6E3A00,
+  'primary-1': #fafaf8,
+  'primary-2': #f4f4f0,
+  'primary-3': #ebebdf,
+  'primary-4': #e3e3d7,
+  'primary-5': #cecec0,
+  'primary-6': #b5b5a6,
+  'primary-7': #94948a,
+  'primary-8': #707068,
+  'primary-9': #4c4c44,
+  'secondary-1': #eef0f2,
+  'secondary-2': #d4d9de,
+  'secondary-3': #aebac4,
+  'secondary-4': #8698a6,
+  'secondary-5': #5e7588,
+  'secondary-6': #3d5769,
+  'secondary-7': #26404f,
+  'secondary-8': #1a2b36,
+  'secondary-9': #121b22,
+  'success-1': #f0fbf0,
+  'success-2': #d4f0d5,
+  'success-3': #a8dda9,
+  'success-4': #74c476,
+  'success-5': #4caf50,
+  'success-6': #388e3c,
+  'success-7': #2a6e2d,
+  'success-8': #1b4d1e,
+  'success-9': #0f2d11,
+  'error-1': #fff0f0,
+  'error-2': #fcdada,
+  'error-3': #f7aeae,
+  'error-4': #f07070,
+  'error-5': #d43030,
+  'error-6': #b01818,
+  'error-7': #930002,
+  'error-8': #720001,
+  'error-9': #581816,
+  'warning-1': #fffbf0,
+  'warning-2': #fff3d0,
+  'warning-3': #ffe49a,
+  'warning-4': #ffd060,
+  'warning-5': #ffb520,
+  'warning-6': #e89000,
+  'warning-7': #c47000,
+  'warning-8': #9c5400,
+  'warning-9': #6e3a00,
 );
 
 $opacity-steps: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95;
@@ -141,7 +142,6 @@ ul.ant-pagination {
     cursor: pointer;
   }
 }
-
 
 .ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
   margin: 0 2px !important;

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm view:*)",
+      "Bash(npx:*)",
+      "Bash(npm install:*)",
+      "Bash(node:*)",
+      "Bash(npx node:*)",
+      "Bash(grep:*)",
+      "WebFetch(domain:www.skeleton.dev)",
+      "WebFetch(domain:ng.ant.design)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

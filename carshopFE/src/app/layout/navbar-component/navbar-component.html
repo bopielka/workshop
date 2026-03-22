@@ -1,82 +1,101 @@
 <nz-layout>
-    <nz-header nz-flex nzJustify="space-between">
+  <nz-header nz-flex nzJustify="space-between">
+    <nz-space nzSize="middle">
+      <div class="hover-pointer logo-color" *nzSpaceItem>
+        <img
+          ngSrc="../../../../assets/icons/logo.svg"
+          height="50"
+          width="100"
+          alt="logo"
+          priority
+          (click)="navigateToHomePage()"
+        />
+      </div>
+      <div class="nav-desktop" *nzSpaceItem>
+        <ul nz-menu nzTheme="dark" nzMode="horizontal">
+          <li class="text-color" nz-menu-item [nzSelected]="isSelected('/home')" routerLink="/home">
+            {{ 'main_page' | translate }}
+          </li>
+          <li class="text-color" nz-menu-item [nzSelected]="isSelected('/cars')" routerLink="/cars">
+            {{ 'all_cars' | translate }}
+          </li>
+          @if (isManager()) {
+            <li
+              class="text-color"
+              nz-menu-item
+              [nzSelected]="isSelected('/manage-cars')"
+              routerLink="/manage-cars"
+            >
+              {{ 'manage_cars' | translate }}
+            </li>
+            <li
+              class="text-color"
+              nz-menu-item
+              [nzSelected]="isSelected('/addCar')"
+              routerLink="/addCar"
+            >
+              {{ 'add_car' | translate }}
+            </li>
+          }
+        </ul>
+      </div>
+    </nz-space>
 
-        <nz-space nzSize="middle">
-            <div class="hover-pointer logo-color" *nzSpaceItem>
-                <img
-                        ngSrc="../../../../assets/icons/logo.svg"
-                        height="50"
-                        width="100"
-                        alt="logo"
-                        priority
-                        (click)="navigateToHomePage()"/>
-            </div>
-            <div class="nav-desktop" *nzSpaceItem>
-                <ul nz-menu nzTheme="dark" nzMode="horizontal">
-                    <li class="text-color" nz-menu-item [nzSelected]="isSelected('/home')"
-                        routerLink="/home">{{ 'main_page' | translate }}
-                    </li>
-                    <li class="text-color" nz-menu-item [nzSelected]="isSelected('/cars')"
-                        routerLink="/cars">{{ 'all_cars' | translate }}
-                    </li>
-                    @if (isManager()) {
-                        <li class="text-color" nz-menu-item [nzSelected]="isSelected('/manage-cars')"
-                            routerLink="/manage-cars">{{ 'manage_cars' | translate }}
-                        </li>
-                        <li class="text-color" nz-menu-item [nzSelected]="isSelected('/addCar')"
-                            routerLink="/addCar">{{ 'add_car' | translate }}
-                        </li>
-                    }
-                </ul>
-            </div>
-        </nz-space>
+    <div class="nav-desktop">
+      <ul nz-menu nzTheme="dark" nzMode="horizontal">
+        <li
+          class="text-color lang-toggle"
+          nz-menu-item
+          [nzSelected]="false"
+          (click)="toggleLang()"
+          nz-tooltip
+          [nzTooltipTitle]="langTooltip"
+          nzTooltipPlacement="bottom"
+        >
+          {{ otherLang }}
+        </li>
+        @if (!isLoggedIn()) {
+          <li class="text-color" nz-menu-item routerLink="/login">{{ 'login' | translate }}</li>
+        } @else {
+          <li class="text-color" nz-menu-item (click)="logout()">{{ 'logout' | translate }}</li>
+        }
+      </ul>
+    </div>
 
-        <div class="nav-desktop">
-            <ul nz-menu nzTheme="dark" nzMode="horizontal">
-                <li class="text-color lang-toggle" nz-menu-item [nzSelected]="false" (click)="toggleLang()" nz-tooltip [nzTooltipTitle]="langTooltip" nzTooltipPlacement="bottom">{{ otherLang }}</li>
-                @if (!isLoggedIn()) {
-                    <li class="text-color" nz-menu-item routerLink="/login">{{ 'login' | translate }}</li>
-                } @else {
-                    <li class="text-color" nz-menu-item (click)="logout()">{{ 'logout' | translate }}</li>
-                }
-            </ul>
-        </div>
-
-        <button class="hamburger-btn" (click)="menuOpen = !menuOpen">
-            <nz-icon [nzType]="menuOpen ? 'close' : 'menu-fold'" nzTheme="outline"/>
-        </button>
-
-    </nz-header>
+    <button class="hamburger-btn" (click)="menuOpen = !menuOpen">
+      <nz-icon [nzType]="menuOpen ? 'close' : 'menu-fold'" nzTheme="outline" />
+    </button>
+  </nz-header>
 </nz-layout>
 
 @if (menuOpen) {
-    <div class="mobile-overlay" (click)="menuOpen = false">
-        <div class="mobile-menu" (click)="$event.stopPropagation()">
-            <a class="mobile-menu__item" routerLink="/home" (click)="menuOpen = false">
-                {{ 'main_page' | translate }}
-            </a>
-            <a class="mobile-menu__item" routerLink="/cars" (click)="menuOpen = false">
-                {{ 'all_cars' | translate }}
-            </a>
-            @if (isManager()) {
-                <a class="mobile-menu__item" routerLink="/manage-cars" (click)="menuOpen = false">
-                    {{ 'manage_cars' | translate }}
-                </a>
-                <a class="mobile-menu__item" routerLink="/addCar" (click)="menuOpen = false">
-                    {{ 'add_car' | translate }}
-                </a>
-            }
-            <div class="mobile-menu__divider"></div>
-            <a class="mobile-menu__item" (click)="toggleLang()">{{ otherLang }}</a>
-            @if (!isLoggedIn()) {
-                <a class="mobile-menu__item" routerLink="/login" (click)="menuOpen = false">
-                    {{ 'login' | translate }}
-                </a>
-            } @else {
-                <a class="mobile-menu__item" (click)="logout()">
-                    {{ 'logout' | translate }}
-                </a>
-            }
-        </div>
+  <div class="mobile-overlay" (click)="menuOpen = false">
+    <div class="mobile-menu" (click)="$event.stopPropagation()">
+      <a class="mobile-menu__item" routerLink="/home" (click)="menuOpen = false">
+        {{ 'main_page' | translate }}
+      </a>
+      <a class="mobile-menu__item" routerLink="/cars" (click)="menuOpen = false">
+        {{ 'all_cars' | translate }}
+      </a>
+      @if (isManager()) {
+        <a class="mobile-menu__item" routerLink="/manage-cars" (click)="menuOpen = false">
+          {{ 'manage_cars' | translate }}
+        </a>
+        <a class="mobile-menu__item" routerLink="/addCar" (click)="menuOpen = false">
+          {{ 'add_car' | translate }}
+        </a>
+      }
+      <div class="mobile-menu__divider"></div>
+      <a class="mobile-menu__item" (click)="toggleLang()">{{ otherLang }}</a>
+      @if (!isLoggedIn()) {
+        <a class="mobile-menu__item" routerLink="/login" (click)="menuOpen = false">
+          {{ 'login' | translate }}
+        </a>
+      } @else {
+        <a class="mobile-menu__item" (click)="logout()">
+          {{ 'logout' | translate }}
+        </a>
+      }
     </div>
+  </div>
 }

@@ -1,28 +1,42 @@
 @if (previewUrls.size > 0) {
-    <div class="carousel-wrapper">
-        <nz-carousel nzEffect="fade" [nzDots]="false" [nzArrows]="false" (nzAfterChange)="onAfterChange($event)">
-            @for (file of fileList(); track file.uid) {
-                <div nz-carousel-content class="carousel-slide" [class.carousel-slide--zoomable]="zoomable()" (click)="imageClick.emit()">
-                    <img [src]="previewUrls.get(file.uid)" [alt]="file.name" class="carousel-img"/>
-                </div>
-            }
-        </nz-carousel>
+  <div class="carousel-wrapper">
+    <nz-carousel
+      nzEffect="fade"
+      [nzDots]="false"
+      [nzArrows]="false"
+      (nzAfterChange)="onAfterChange($event)"
+    >
+      @for (file of fileList(); track file.uid) {
+        <div
+          nz-carousel-content
+          class="carousel-slide"
+          [class.carousel-slide--zoomable]="zoomable()"
+          (click)="imageClick.emit()"
+        >
+          <img [src]="previewUrls.get(file.uid)" [alt]="file.name" class="carousel-img" />
+        </div>
+      }
+    </nz-carousel>
 
-        @if (fileList().length > 1) {
-            <div class="carousel-nav">
-                <button class="carousel-nav__arrow" (click)="prev()"></button>
-                @for (file of fileList(); track file.uid; let i = $index) {
-                    <button class="carousel-nav__dot" [class.carousel-nav__dot--active]="activeIndex() === i" (click)="goTo(i)"></button>
-                }
-                <button class="carousel-nav__arrow carousel-nav__arrow--next" (click)="next()"></button>
-            </div>
+    @if (fileList().length > 1) {
+      <div class="carousel-nav">
+        <button class="carousel-nav__arrow" (click)="prev()"></button>
+        @for (file of fileList(); track file.uid; let i = $index) {
+          <button
+            class="carousel-nav__dot"
+            [class.carousel-nav__dot--active]="activeIndex() === i"
+            (click)="goTo(i)"
+          ></button>
         }
-    </div>
-    <div class="carousel-actions">
-        <ng-content select="[actions]"/>
-    </div>
+        <button class="carousel-nav__arrow carousel-nav__arrow--next" (click)="next()"></button>
+      </div>
+    }
+  </div>
+  <div class="carousel-actions">
+    <ng-content select="[actions]" />
+  </div>
 } @else {
-    <div class="carousel-empty">
-        <span>Brak zdjęć</span>
-    </div>
+  <div class="carousel-empty">
+    <span>Brak zdjęć</span>
+  </div>
 }

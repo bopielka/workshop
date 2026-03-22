@@ -1,3 +1,3 @@
 export enum Role {
-    MANAGE_CARS = 'manage-cars',
+  MANAGE_CARS = 'manage-cars',
 }

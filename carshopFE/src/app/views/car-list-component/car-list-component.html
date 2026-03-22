@@ -1,12 +1,13 @@
 <app-page-wrapper [title]="'all_cars' | translate">
-    <app-contact-pill actions/>
+  <app-contact-pill actions />
 
-    <app-cars-grid
-            [cars]="carsQuery.data()?.resources ?? []"
-            [isLoading]="carsQuery.isLoading()"
-            [totalRecordCount]="carsQuery.data()?.totalRecordCount ?? 0"
-            [pageSize]="pageSize"
-            [currentPage]="currentPage()"
-            (pageChange)="onPageChange($event)"
-            (searchChange)="onSearchChange($event)"/>
+  <app-cars-grid
+    [cars]="carsQuery.data()?.resources ?? []"
+    [isLoading]="carsQuery.isLoading()"
+    [totalRecordCount]="carsQuery.data()?.totalRecordCount ?? 0"
+    [pageSize]="pageSize"
+    [currentPage]="currentPage()"
+    (pageChange)="onPageChange($event)"
+    (searchChange)="onSearchChange($event)"
+  />
 </app-page-wrapper>
